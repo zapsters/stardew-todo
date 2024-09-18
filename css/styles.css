@@ -22,7 +22,7 @@ body {
   height: 100%;
   overflow: overlay;
   scrollbar-gutter: stable;
-  background-image: url("/images/game_screen_day.png"), url("/images/game_screen_night.png");
+  background-image: url("../images/game_screen_day.png"), url("../images/game_screen_night.png");
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -241,16 +241,16 @@ body {
   cursor: default;
 }
 .app .wrapper .main .starRating .starEmpty {
-  background-image: url("/images/star_empty.png");
+  background-image: url("../images/star_empty.png");
 }
 .app .wrapper .main .starRating .starFull {
-  background-image: url("/images/star_full.png");
+  background-image: url("../images/star_full.png");
 }
 .app .wrapper .main .starRating i {
   width: 24px;
   height: 24px;
   position: relative;
-  background-image: url("/images/star_empty.png");
+  background-image: url("../images/star_empty.png");
 }
 .app .wrapper .main .starRating i input {
   cursor: pointer;
@@ -265,7 +265,7 @@ body {
   background-color: red;
 }
 .app .wrapper .main .starRating i:has(> input[type=radio]:checked) {
-  background-image: url("/images/star_full.png");
+  background-image: url("../images/star_full.png");
 }
 
 @media (max-width: 750px) {
@@ -277,7 +277,7 @@ body {
   position: fixed;
   top: 14px;
   right: 3px;
-  background-image: url("/images/clock_main.png");
+  background-image: url("../images/clock_main.png");
   aspect-ratio: 72/59;
   height: 190px;
   background-size: cover;
@@ -331,7 +331,7 @@ body {
   outline: none;
 }
 .clock .arrow {
-  background-image: url("/images/ClockArrow.png");
+  background-image: url("../images/ClockArrow.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -377,7 +377,7 @@ i {
 }
 
 .checkmark {
-  background-image: url("/images/checkMark.png");
+  background-image: url("../images/checkMark.png");
   cursor: pointer;
   opacity: 0.6;
 }
@@ -386,7 +386,7 @@ i {
 }
 
 .taskSettings {
-  background-image: url("/images/taskSettings.png");
+  background-image: url("../images/taskSettings.png");
   cursor: pointer;
   opacity: 0.6;
 }
@@ -395,11 +395,11 @@ i {
 }
 
 .timeIcon {
-  background-image: url("/images/timeIcon.png");
+  background-image: url("../images/timeIcon.png");
 }
 
 .goldIcon {
-  background-image: url("/images/goldIcon.png");
+  background-image: url("../images/goldIcon.png");
 }
 
 .tooltip {

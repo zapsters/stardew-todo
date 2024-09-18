@@ -186,17 +186,17 @@
         cursor: default;
 
         .starEmpty {
-          background-image: url("/images/star_empty.png");
+          background-image: url("../images/star_empty.png");
         }
         .starFull {
-          background-image: url("/images/star_full.png");
+          background-image: url("../images/star_full.png");
         }
 
         i {
           width: 24px;
           height: 24px;
           position: relative;
-          background-image: url("/images/star_empty.png");
+          background-image: url("../images/star_empty.png");
           input {
             cursor: pointer;
             position: absolute;
@@ -211,7 +211,7 @@
           }
         }
         i:has(> input[type="radio"]:checked) {
-          background-image: url("/images/star_full.png");
+          background-image: url("../images/star_full.png");
         }
       }
     }

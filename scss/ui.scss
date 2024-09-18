@@ -32,20 +32,20 @@ i {
 }
 
 .checkmark {
-  background-image: url("/images/checkMark.png");
+  background-image: url("../images/checkMark.png");
   cursor: pointer;
   @include opacityHoverUi;
 }
 .taskSettings {
-  background-image: url("/images/taskSettings.png");
+  background-image: url("../images/taskSettings.png");
   cursor: pointer;
   @include opacityHoverUi;
 }
 .timeIcon {
-  background-image: url("/images/timeIcon.png");
+  background-image: url("../images/timeIcon.png");
 }
 .goldIcon {
-  background-image: url("/images/goldIcon.png");
+  background-image: url("../images/goldIcon.png");
 }
 
 .tooltip {

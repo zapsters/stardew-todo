@@ -3,7 +3,7 @@
   top: 14px;
   right: 3px;
 
-  background-image: url("/images/clock_main.png");
+  background-image: url("../images/clock_main.png");
   aspect-ratio: 72 / 59;
   height: 190px;
 
@@ -63,7 +63,7 @@
   }
 
   .arrow {
-    background-image: url("/images/ClockArrow.png");
+    background-image: url("../images/ClockArrow.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
