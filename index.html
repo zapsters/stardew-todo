@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stardew ToDo</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- <img src="images/game_screen_night.png" alt="" srcset="" /> -->
+      <div class="wrapper">
+        <div class="titleBox">
+          <h1>Stardew ToDo:</h1>
+          <h3>Driven by cookies!</h3>
+        </div>
+        <div class="main">
+          <div class="menu" style="flex: 1">
+            <div class="tab-menu" id="main-menu">
+              <div class="tab tab--active" id="main-menu-tasktab">
+                <p>Tasks</p>
+              </div>
+            </div>
+            <div class="todo">
+              <h2>All Tasks:</h2>
+              <details open>
+                <summary><h3>Uncompleted Tasks [1]</h3></summary>
+                <ul id="uncompleted-tasks-list">
+                  <li class="taskbox">
+                    <div class="upper">
+                      <div class="icon--holder"><div class="icon"></div></div>
+                      <div class="details">
+                        <h3>Take the trash out?!?!</h3>
+                        <div class="description">
+                          <p>
+                            A little description if needed. Though if it is too
+                            long I am not sure if it will mess anything up.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="stats">
+                        <span>
+                          <i class="goldIcon"></i>
+                          <p>200g</p>
+                        </span>
+                        <span>
+                          <i class="timeIcon"></i>
+                          <p>2 days<br /></p>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="lower">
+                      <span class="starRating">
+                        <i class="starFull"></i>
+                        <i class="starFull"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                      </span>
+                      <div class="options">
+                        <i class="checkmark tooltip">
+                          <a href="#"></a>
+                          <span class="tooltiptext">Complete Task</span></i
+                        >
+                        <i class="taskSettings tooltip right">
+                          <a href="#"></a>
+                          <span class="tooltiptext">Edit Task</span></i
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </details>
+              <details>
+                <summary><h3>Completed Tasks [0]</h3></summary>
+              </details>
+            </div>
+          </div>
+          <div class="menu" style="flex: 0.5" id="test">
+            <div class="tab-menu" id="sidebar-menu">
+              <div class="tab tab--active" id="createTask">
+                <p>+</p>
+              </div>
+              <div class="tab" id="editTask">
+                <p>edit</p>
+              </div>
+            </div>
+            <div class="create-task" id="createTaskMenu">
+              <h2>Create Task:</h2>
+              <form id="createTaskForm">
+                <table>
+                  <tr>
+                    <td>
+                      <p>Title<span>*</span></p>
+                    </td>
+                    <td>
+                      <input type="text" autocomplete="off" name="taskTitle" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p>Description</p></td>
+                    <td>
+                      <textarea
+                        autocomplete="off"
+                        name="taskDescription"
+                        rows="3"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Due Date<span>*</span></p>
+                    </td>
+                    <td>
+                      <input
+                        type="datetime-local"
+                        autocomplete="off"
+                        name="dueDate"
+                        id="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Difficulty</p>
+                    </td>
+                    <td>
+                      <span class="starRating selectable">
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio1"
+                            name="starRating"
+                            value="1"
+                            checked="1"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio2"
+                            name="starRating"
+                            value="2"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio3"
+                            name="starRating"
+                            value="3"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio4"
+                            name="starRating"
+                            value="4"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio5"
+                            name="starRating"
+                            value="5"
+                        /></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="submit" value="Create Task" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="createTaskForm--responseText">
+                      <p></p>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+            <div class="create-task" id="editTaskMenu" style="display: none">
+              <h2>Edit Task:</h2>
+              <form id="editTaskForm">
+                <table>
+                  <tr>
+                    <td>
+                      <p>Title<span>*</span></p>
+                    </td>
+                    <td>
+                      <input type="text" autocomplete="off" name="taskTitle" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p>Description</p></td>
+                    <td>
+                      <textarea
+                        autocomplete="off"
+                        name="taskDescription"
+                        rows="3"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Due Date<span>*</span></p>
+                    </td>
+                    <td>
+                      <input
+                        type="datetime-local"
+                        autocomplete="off"
+                        name="dueDate"
+                        id="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Difficulty</p>
+                    </td>
+                    <td>
+                      <span class="starRating selectable">
+                        <i
+                          ><input
+                            type="radio"
+                            id="editTaskStarRadio1"
+                            name="starRating"
+                            value="1"
+                            checked="1"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="editTaskStarRadio2"
+                            name="starRating"
+                            value="2"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="editTaskStarRadio3"
+                            name="starRating"
+                            value="3"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="editTaskStarRadio4"
+                            name="starRating"
+                            value="4"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="editTaskStarRadio5"
+                            name="starRating"
+                            value="5"
+                        /></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="submit" value="Update Task" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="editTaskForm--responseText">
+                      <p></p>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clock">
+      <div class="date"><p id="dateElement"></p></div>
+      <div class="time"><p id="timeElement"></p></div>
+      <div class="gold">
+        <span contenteditable="true" id="goldDisplayCount"></span>
+      </div>
+      <div class="arrow" id="clockArrowElement"></div>
+    </div>
+    <script type="text/javascript" src="js-cookie/js.cookie.js"></script>
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script type="module" src="app/app.js"></script>
+    <script type="module" src="model/model.js"></script>
+    <script type="module" src="clock.js"></script>
+  </body>
+</html>

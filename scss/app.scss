@@ -1,0 +1,229 @@
+.app {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 3vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: visible;
+  overflow: hidden;
+
+  h1 {
+    font-size: 35px;
+  }
+  h2 {
+    text-decoration: underline;
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+  p {
+    font-size: 20px;
+  }
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    // height: 100%;
+  }
+
+  .wrapper {
+    max-width: $app-wrapper-width;
+    width: 100%;
+    padding-bottom: 100px;
+    margin: 0 auto;
+
+    .titleBox {
+      overflow: visible;
+      flex: 1;
+      padding: 10px 13px;
+      width: calc(100% - 240px);
+      @include menuBorderTypeA;
+    }
+    .main {
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      margin-top: 50px;
+      width: 100%;
+      flex: 1;
+      // overflow: hidden;
+      // @include menuBorderTypeA;
+      padding: 0px 0px;
+      gap: 50px;
+      min-height: 600px;
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      .todo {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        flex: 1;
+        padding: 10px;
+        padding-right: 0px;
+        details {
+          margin-bottom: 0px;
+          summary {
+            width: 100%;
+            font-size: 25px;
+            cursor: pointer;
+            h3 {
+              display: inline-block;
+            }
+          }
+          // *:last-child:not(:nth-child(1)) {
+          //   background-color: red;
+          //   margin-bottom: 19px;
+          // }
+        }
+        details[open] {
+          margin-bottom: 19px;
+        }
+        ul {
+          margin: 0px;
+          padding: 0px;
+        }
+      }
+
+      .menu {
+        position: relative;
+        margin-top: 70px;
+        @include menuBorderTypeA;
+        .tab-menu {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          position: absolute;
+          top: -84px;
+          .tab {
+            cursor: pointer;
+            position: relative;
+            image-rendering: pixelated;
+            width: 64px;
+            height: 64px;
+            background-image: url("../images/ui_tab.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            p,
+            span {
+              position: relative;
+              top: 8px;
+              margin: 0;
+              padding: 0;
+            }
+          }
+          .tab--active {
+            top: 8px;
+          }
+        }
+      }
+
+      .create-task {
+        overflow: visible scroll;
+        padding-right: 8px;
+        padding: 10px 13px;
+        flex: 0.6;
+
+        table {
+          tr {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            margin-bottom: 10px;
+
+            td {
+              padding: 1px;
+              display: flex;
+              justify-content: left;
+              width: 100%;
+
+              input,
+              textarea {
+                width: 100%;
+                resize: vertical;
+              }
+              textarea {
+                max-height: 175px;
+              }
+            }
+          }
+        }
+
+        // div {
+        //   display: flex;
+        //   align-items: stretch;
+        //   justify-content: space-between;
+        //   flex-direction: column;
+        //   gap: 4px;
+      }
+
+      .starRating.selectable {
+        i {
+          cursor: pointer;
+        }
+      }
+
+      .starRating {
+        display: flex;
+        flex-grow: 0;
+        gap: 4px;
+        align-items: center;
+        justify-content: left;
+        display: inline-block;
+        text-wrap: nowrap;
+
+        cursor: default;
+
+        .starEmpty {
+          background-image: url("/images/star_empty.png");
+        }
+        .starFull {
+          background-image: url("/images/star_full.png");
+        }
+
+        i {
+          width: 24px;
+          height: 24px;
+          position: relative;
+          background-image: url("/images/star_empty.png");
+          input {
+            cursor: pointer;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: red !important;
+            border-radius: 0;
+          }
+          input[type="radio"]:checked + i {
+            background-color: red;
+          }
+        }
+        i:has(> input[type="radio"]:checked) {
+          background-image: url("/images/star_full.png");
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .app {
+    .wrapper {
+      .main {
+        flex-direction: column;
+      }
+    }
+  }
+}

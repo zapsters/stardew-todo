@@ -1,0 +1,170 @@
+::-webkit-scrollbar {
+  width: 0em;
+  height: 2em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  opacity: 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+  opacity: 0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  opacity: 0;
+}
+
+i {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  image-rendering: pixelated;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.checkmark {
+  background-image: url("/images/checkMark.png");
+  cursor: pointer;
+  @include opacityHoverUi;
+}
+.taskSettings {
+  background-image: url("/images/taskSettings.png");
+  cursor: pointer;
+  @include opacityHoverUi;
+}
+.timeIcon {
+  background-image: url("/images/timeIcon.png");
+}
+.goldIcon {
+  background-image: url("/images/goldIcon.png");
+}
+
+.tooltip {
+  z-index: 100;
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  background-color: rgba(0, 0, 0, 0.648);
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 3px 4px 0px 4px;
+  overflow: visible;
+  visibility: hidden;
+  margin-bottom: 4px;
+
+  /* Position the tooltip */
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 100%;
+  font-style: normal;
+  white-space: nowrap;
+}
+.tooltip.right .tooltiptext {
+  transform: unset;
+  left: unset;
+  bottom: unset;
+  position: absolute;
+  right: 0%;
+  white-space: nowrap;
+  bottom: 100%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+summary:hover h3 {
+  text-decoration: underline;
+}
+details {
+  margin-bottom: 40px;
+}
+
+details > summary {
+  list-style-image: url("/images/dropdownArrowRight.png");
+  image-rendering: pixelated;
+  h3 {
+    margin-left: 4px;
+  }
+}
+
+details[open] > summary {
+  list-style-image: url("/images/dropdownArrowDown.png");
+}
+
+input:not(input[type="radio"]),
+textarea {
+  position: relative;
+  background-color: #f9ba66;
+  border: none;
+  box-shadow: #f9ba66 -4px 0px, #f9ba66 4px 0px, #f9ba66 0px 4px,
+    #f9ba66 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px,
+    #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px,
+    #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px,
+    #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px,
+    #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px,
+    #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+  margin: 12px 8px 12px 12px;
+
+  font-family: "stardewValleyItem";
+  font-size: 20px;
+  border: 0;
+  outline: none;
+
+  // width: max-content;
+  // max-width: $input-box-maxsize;
+  min-width: 0px;
+  min-height: 24px;
+}
+
+table {
+  width: 100%;
+  th,
+  td {
+    padding-bottom: 4px;
+  }
+}
+
+input[type="submit"] {
+  cursor: pointer;
+  // border: 2px solid red;
+}
+
+input[type="submit"]:hover {
+  text-decoration: underline;
+}
+
+input:hover:not(input[type="radio"]),
+textarea:hover {
+  $hover-color: #ebab59;
+  background-color: $hover-color;
+  box-shadow: $hover-color -4px 0px, $hover-color 4px 0px, $hover-color 0px 4px,
+    $hover-color 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px,
+    #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px,
+    #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px,
+    #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px,
+    #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px,
+    #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  // display: none;
+  // -webkit-appearance: none;
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+}

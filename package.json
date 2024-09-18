@@ -1,0 +1,18 @@
+{
+  "name": "competitivewordle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "sass -w scss/styles.scss css/styles.css",
+    "live-server": "live-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.77.8"
+  },
+  "dependencies": {
+    "js-cookie": "^3.0.5"
+  }
+}

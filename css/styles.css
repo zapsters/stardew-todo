@@ -1,0 +1,609 @@
+@font-face {
+  font-family: "stardewValleyItem";
+  src: url("fonts/stardew-item-font.otf");
+}
+@font-face {
+  font-family: "stardewValley";
+  src: url("fonts/svbold.otf");
+}
+@font-face {
+  font-family: "commodore";
+  src: url("fonts/Commodore Pixelized v1.2.ttf");
+}
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: overlay;
+  scrollbar-gutter: stable;
+  background-image: url("/images/game_screen_day.png"), url("/images/game_screen_night.png");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+i {
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0px;
+}
+
+h1 {
+  color: #581306;
+  font-family: "stardewValley", sans-serif;
+}
+
+h2 {
+  color: #581306;
+  font-family: "stardewValley", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 100 !important;
+}
+
+/* End of Reset */
+body {
+  background-color: #f8f8f8;
+  color: #121213;
+  font-family: "stardewValleyItem", sans-serif;
+}
+
+.app {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 40px 3vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: visible;
+  overflow: hidden;
+}
+.app h1 {
+  font-size: 35px;
+}
+.app h2 {
+  text-decoration: underline;
+  font-size: 26px;
+}
+.app h3 {
+  font-size: 22px;
+}
+.app p {
+  font-size: 20px;
+}
+.app img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.app .wrapper {
+  max-width: 1200px;
+  width: 100%;
+  padding-bottom: 100px;
+  margin: 0 auto;
+}
+.app .wrapper .titleBox {
+  overflow: visible;
+  flex: 1;
+  padding: 10px 13px;
+  width: calc(100% - 240px);
+  background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
+  box-shadow: #d68f54 -4px 0px, #c47a48 0px -4px, #c47a48 -4px -4px, #d68f54 0px 4px, #c47a48 -4px 4px, #c47a48 8px -4px, #c47a48 8px 4px, #853605 -8px -8px, #853605 12px -8px, #853605 12px 8px, #853605 -8px 8px, #b14e05 8px -12px, #dc7b05 12px -12px, #b14e05 16px -4px, #dc7b05 16px -8px, #b14e05 16px -12px, #b14e05 16px 8px, #fa9305 0px 12px, #fa9305 4px 12px, #dc7b05 8px 12px, #b14e05 12px 12px, #853605 16px 12px, #dc7b05 -4px 12px, #b14e05 -8px 12px, #dc7b05 -12px 4px, #dc7b05 -12px -4px, #b14e05 -12px -8px, #b14e05 -8px -12px, #853605 -12px -12px, #b14e05 -12px 8px, #853605 -12px 12px, #fa9305 12px -16px, #dc7b05 16px -16px, #dc7b05 20px -12px, #dc7b05 20px 4px, #853605 20px -16px, #b14e05 20px 12px, #b14e05 16px 16px, #b14e05 -12px 16px, #853605 20px 16px, #b14e05 -16px 12px, #b14e05 -16px -12px, #853605 -16px 16px, #fa9305 4px -16px, #dc7b05 -4px -16px, #b14e05 -12px -16px, #853605 -16px -16px, #5b2b2a -12px -20px, #5b2b2a 16px -20px, #5b2b2a 24px -12px, #5b2b2a 24px 12px, #5b2b2a 16px 20px, #5b2b2a -12px 20px, #5b2b2a -20px 12px, #5b2b2a -20px -12px;
+}
+.app .wrapper .titleBox h1 {
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+.app .wrapper .titleBox ul {
+  list-style-type: none;
+}
+.app .wrapper .main {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  margin-top: 50px;
+  width: 100%;
+  flex: 1;
+  padding: 0px 0px;
+  gap: 50px;
+  min-height: 600px;
+}
+.app .wrapper .main ::-webkit-scrollbar {
+  display: none;
+}
+.app .wrapper .main .todo {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex: 1;
+  padding: 10px;
+  padding-right: 0px;
+}
+.app .wrapper .main .todo details {
+  margin-bottom: 0px;
+}
+.app .wrapper .main .todo details summary {
+  width: 100%;
+  font-size: 25px;
+  cursor: pointer;
+}
+.app .wrapper .main .todo details summary h3 {
+  display: inline-block;
+}
+.app .wrapper .main .todo details[open] {
+  margin-bottom: 19px;
+}
+.app .wrapper .main .todo ul {
+  margin: 0px;
+  padding: 0px;
+}
+.app .wrapper .main .menu {
+  position: relative;
+  margin-top: 70px;
+  background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
+  box-shadow: #d68f54 -4px 0px, #c47a48 0px -4px, #c47a48 -4px -4px, #d68f54 0px 4px, #c47a48 -4px 4px, #c47a48 8px -4px, #c47a48 8px 4px, #853605 -8px -8px, #853605 12px -8px, #853605 12px 8px, #853605 -8px 8px, #b14e05 8px -12px, #dc7b05 12px -12px, #b14e05 16px -4px, #dc7b05 16px -8px, #b14e05 16px -12px, #b14e05 16px 8px, #fa9305 0px 12px, #fa9305 4px 12px, #dc7b05 8px 12px, #b14e05 12px 12px, #853605 16px 12px, #dc7b05 -4px 12px, #b14e05 -8px 12px, #dc7b05 -12px 4px, #dc7b05 -12px -4px, #b14e05 -12px -8px, #b14e05 -8px -12px, #853605 -12px -12px, #b14e05 -12px 8px, #853605 -12px 12px, #fa9305 12px -16px, #dc7b05 16px -16px, #dc7b05 20px -12px, #dc7b05 20px 4px, #853605 20px -16px, #b14e05 20px 12px, #b14e05 16px 16px, #b14e05 -12px 16px, #853605 20px 16px, #b14e05 -16px 12px, #b14e05 -16px -12px, #853605 -16px 16px, #fa9305 4px -16px, #dc7b05 -4px -16px, #b14e05 -12px -16px, #853605 -16px -16px, #5b2b2a -12px -20px, #5b2b2a 16px -20px, #5b2b2a 24px -12px, #5b2b2a 24px 12px, #5b2b2a 16px 20px, #5b2b2a -12px 20px, #5b2b2a -20px 12px, #5b2b2a -20px -12px;
+}
+.app .wrapper .main .menu h1 {
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+.app .wrapper .main .menu ul {
+  list-style-type: none;
+}
+.app .wrapper .main .menu .tab-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  top: -84px;
+}
+.app .wrapper .main .menu .tab-menu .tab {
+  cursor: pointer;
+  position: relative;
+  image-rendering: pixelated;
+  width: 64px;
+  height: 64px;
+  background-image: url("../images/ui_tab.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.app .wrapper .main .menu .tab-menu .tab p,
+.app .wrapper .main .menu .tab-menu .tab span {
+  position: relative;
+  top: 8px;
+  margin: 0;
+  padding: 0;
+}
+.app .wrapper .main .menu .tab-menu .tab--active {
+  top: 8px;
+}
+.app .wrapper .main .create-task {
+  overflow: visible scroll;
+  padding-right: 8px;
+  padding: 10px 13px;
+  flex: 0.6;
+}
+.app .wrapper .main .create-task table tr {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.app .wrapper .main .create-task table tr td {
+  padding: 1px;
+  display: flex;
+  justify-content: left;
+  width: 100%;
+}
+.app .wrapper .main .create-task table tr td input,
+.app .wrapper .main .create-task table tr td textarea {
+  width: 100%;
+  resize: vertical;
+}
+.app .wrapper .main .create-task table tr td textarea {
+  max-height: 175px;
+}
+.app .wrapper .main .starRating.selectable i {
+  cursor: pointer;
+}
+.app .wrapper .main .starRating {
+  display: flex;
+  flex-grow: 0;
+  gap: 4px;
+  align-items: center;
+  justify-content: left;
+  display: inline-block;
+  text-wrap: nowrap;
+  cursor: default;
+}
+.app .wrapper .main .starRating .starEmpty {
+  background-image: url("/images/star_empty.png");
+}
+.app .wrapper .main .starRating .starFull {
+  background-image: url("/images/star_full.png");
+}
+.app .wrapper .main .starRating i {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  background-image: url("/images/star_empty.png");
+}
+.app .wrapper .main .starRating i input {
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: red !important;
+  border-radius: 0;
+}
+.app .wrapper .main .starRating i input[type=radio]:checked + i {
+  background-color: red;
+}
+.app .wrapper .main .starRating i:has(> input[type=radio]:checked) {
+  background-image: url("/images/star_full.png");
+}
+
+@media (max-width: 750px) {
+  .app .wrapper .main {
+    flex-direction: column;
+  }
+}
+.clock {
+  position: fixed;
+  top: 14px;
+  right: 3px;
+  background-image: url("/images/clock_main.png");
+  aspect-ratio: 72/59;
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+.clock .date {
+  position: absolute;
+  left: 87px;
+  top: 18px;
+  height: 32px;
+  width: 126px;
+  margin: 0;
+  font-size: 27px;
+  padding-left: 8px;
+  pointer-events: none;
+}
+.clock .time {
+  position: absolute;
+  left: 87px;
+  top: 87px;
+  height: 32px;
+  width: 126px;
+  margin: 0;
+  font-size: 31px;
+  padding-left: 8px;
+  pointer-events: none;
+}
+.clock .gold {
+  position: absolute;
+  right: 19px;
+  top: 151px;
+  margin: 0;
+  display: flex;
+  justify-content: right;
+}
+.clock .gold span {
+  font-size: 29px;
+  font-family: "stardewvalley", monospace;
+  font-weight: 800;
+  letter-spacing: 3.9px;
+  font-variant-numeric: tabular-nums lining-nums;
+  text-shadow: 2px 2px 1px rgba(135, 17, 15, 0.4470588235);
+  color: #87110f;
+  padding: 0;
+  margin: 0;
+}
+.clock .gold span:focus,
+.clock .gold span:focus {
+  outline: none;
+}
+.clock .arrow {
+  background-image: url("/images/ClockArrow.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 7/19;
+  position: absolute;
+  left: 58px;
+  top: -15px;
+  height: 80px;
+  transform-origin: 50% 97%;
+}
+
+::-webkit-scrollbar {
+  width: 0em;
+  height: 2em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  opacity: 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red;
+  opacity: 0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+  opacity: 0;
+}
+
+i {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  image-rendering: pixelated;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.checkmark {
+  background-image: url("/images/checkMark.png");
+  cursor: pointer;
+  opacity: 0.6;
+}
+.checkmark:hover {
+  opacity: 1;
+}
+
+.taskSettings {
+  background-image: url("/images/taskSettings.png");
+  cursor: pointer;
+  opacity: 0.6;
+}
+.taskSettings:hover {
+  opacity: 1;
+}
+
+.timeIcon {
+  background-image: url("/images/timeIcon.png");
+}
+
+.goldIcon {
+  background-image: url("/images/goldIcon.png");
+}
+
+.tooltip {
+  z-index: 100;
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  background-color: rgba(0, 0, 0, 0.648);
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 3px 4px 0px 4px;
+  overflow: visible;
+  visibility: hidden;
+  margin-bottom: 4px;
+  /* Position the tooltip */
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 100%;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.tooltip.right .tooltiptext {
+  transform: unset;
+  left: unset;
+  bottom: unset;
+  position: absolute;
+  right: 0%;
+  white-space: nowrap;
+  bottom: 100%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+summary:hover h3 {
+  text-decoration: underline;
+}
+
+details {
+  margin-bottom: 40px;
+}
+
+details > summary {
+  list-style-image: url("/images/dropdownArrowRight.png");
+  image-rendering: pixelated;
+}
+details > summary h3 {
+  margin-left: 4px;
+}
+
+details[open] > summary {
+  list-style-image: url("/images/dropdownArrowDown.png");
+}
+
+input:not(input[type=radio]),
+textarea {
+  position: relative;
+  background-color: #f9ba66;
+  border: none;
+  box-shadow: #f9ba66 -4px 0px, #f9ba66 4px 0px, #f9ba66 0px 4px, #f9ba66 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px, #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px, #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px, #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px, #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px, #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+  margin: 12px 8px 12px 12px;
+  font-family: "stardewValleyItem";
+  font-size: 20px;
+  border: 0;
+  outline: none;
+  min-width: 0px;
+  min-height: 24px;
+}
+
+table {
+  width: 100%;
+}
+table th,
+table td {
+  padding-bottom: 4px;
+}
+
+input[type=submit] {
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  text-decoration: underline;
+}
+
+input:hover:not(input[type=radio]),
+textarea:hover {
+  background-color: #ebab59;
+  box-shadow: #ebab59 -4px 0px, #ebab59 4px 0px, #ebab59 0px 4px, #ebab59 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px, #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px, #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px, #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px, #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px, #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+}
+
+.taskbox {
+  background-color: #f5b75d;
+  border: solid #905f38 3px;
+  margin-bottom: 12px;
+  cursor: default;
+  position: relative;
+  padding: 6px;
+  padding-bottom: 0px;
+  margin-right: 4px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100px;
+}
+.taskbox .upper {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  min-height: 58px;
+  gap: 4px;
+}
+.taskbox .upper .icon--holder {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.taskbox .upper .icon--holder .icon {
+  flex: 1;
+  width: 60px;
+  aspect-ratio: 1/1;
+  background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
+  background-image: url("../images/itemicons/note.png");
+  image-rendering: pixelated;
+  background-color: rgba(0, 0, 0, 0.2196078431);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: solid #905f38 3px;
+}
+.taskbox .upper .details {
+  color: #2c0303;
+}
+.taskbox .upper .details h3 {
+  text-decoration: underline;
+  font-family: "stardewValley";
+  margin-bottom: 4px;
+}
+.taskbox .upper .details .description {
+  margin-left: 4px;
+}
+.taskbox .upper .stats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: right;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0;
+}
+.taskbox .upper .stats span {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  gap: 1px;
+}
+.taskbox .upper .stats span * {
+  display: inline-block;
+  white-space: nowrap;
+}
+.taskbox .upper .stats span i {
+  margin-right: 5px;
+}
+.taskbox .lower {
+  flex: 0;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  row-gap: 4px;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0 0 4px 0;
+}
+.taskbox .lower .options {
+  width: 100%;
+  display: block;
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+  flex-grow: 0;
+}
+.taskbox .lower .options i {
+  width: 35px;
+  height: 35px;
+  position: relative;
+}
+.taskbox .lower .options i a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */

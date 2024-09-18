@@ -1,0 +1,53 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  overflow: overlay;
+  scrollbar-gutter: stable;
+
+  background-image: url("/images/game_screen_day.png"),
+    url("/images/game_screen_night.png");
+  background-size: cover;
+  background-position: center top;
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+i {
+  font-style: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0px;
+}
+
+h1 {
+  color: $header-text-color;
+  font-family: "stardewValley", sans-serif;
+}
+h2 {
+  color: $header-text-color;
+  font-family: "stardewValley", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-weight: 100 !important;
+}
+/* End of Reset */
+
+body {
+  background-color: #f8f8f8;
+  color: #121213;
+  font-family: "stardewValleyItem", sans-serif;
+}
