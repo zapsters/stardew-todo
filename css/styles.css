@@ -99,14 +99,16 @@ body {
 .app .wrapper {
   max-width: 1200px;
   width: 100%;
-  padding-bottom: 100px;
   margin: 0 auto;
+  height: 100%;
+  max-height: calc(100vh - 230px);
 }
 .app .wrapper .titleBox {
+  text-align: center;
+  margin: 0 auto;
   overflow: visible;
   flex: 1;
   padding: 10px 13px;
-  width: calc(100% - 240px);
   background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
   box-shadow: #d68f54 -4px 0px, #c47a48 0px -4px, #c47a48 -4px -4px, #d68f54 0px 4px, #c47a48 -4px 4px, #c47a48 8px -4px, #c47a48 8px 4px, #853605 -8px -8px, #853605 12px -8px, #853605 12px 8px, #853605 -8px 8px, #b14e05 8px -12px, #dc7b05 12px -12px, #b14e05 16px -4px, #dc7b05 16px -8px, #b14e05 16px -12px, #b14e05 16px 8px, #fa9305 0px 12px, #fa9305 4px 12px, #dc7b05 8px 12px, #b14e05 12px 12px, #853605 16px 12px, #dc7b05 -4px 12px, #b14e05 -8px 12px, #dc7b05 -12px 4px, #dc7b05 -12px -4px, #b14e05 -12px -8px, #b14e05 -8px -12px, #853605 -12px -12px, #b14e05 -12px 8px, #853605 -12px 12px, #fa9305 12px -16px, #dc7b05 16px -16px, #dc7b05 20px -12px, #dc7b05 20px 4px, #853605 20px -16px, #b14e05 20px 12px, #b14e05 16px 16px, #b14e05 -12px 16px, #853605 20px 16px, #b14e05 -16px 12px, #b14e05 -16px -12px, #853605 -16px 16px, #fa9305 4px -16px, #dc7b05 -4px -16px, #b14e05 -12px -16px, #853605 -16px -16px, #5b2b2a -12px -20px, #5b2b2a 16px -20px, #5b2b2a 24px -12px, #5b2b2a 24px 12px, #5b2b2a 16px 20px, #5b2b2a -12px 20px, #5b2b2a -20px 12px, #5b2b2a -20px -12px;
 }
@@ -120,12 +122,13 @@ body {
 .app .wrapper .main {
   display: flex;
   align-items: stretch;
+  height: 100%;
   justify-content: stretch;
   margin-top: 50px;
   width: 100%;
   flex: 1;
   padding: 0px 0px;
-  gap: 50px;
+  gap: 70px;
   min-height: 600px;
 }
 .app .wrapper .main ::-webkit-scrollbar {
@@ -182,9 +185,9 @@ body {
   image-rendering: pixelated;
   width: 64px;
   height: 64px;
-  background-image: url("../images/ui_tab.png");
-  background-size: cover;
-  background-position: center;
+  background-image: none, url("../images/ui_tab.png");
+  background-size: 58%, cover;
+  background-position: 50% 77%, center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
@@ -199,6 +202,9 @@ body {
 }
 .app .wrapper .main .menu .tab-menu .tab--active {
   top: 8px;
+}
+.app .wrapper .main .menu .tab-menu .tab--icon--task {
+  background-image: url("../images/tasksIcon.png"), url("../images/ui_tab.png");
 }
 .app .wrapper .main .create-task {
   overflow: visible scroll;
