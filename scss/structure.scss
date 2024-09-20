@@ -6,10 +6,6 @@
 }
 html,
 body {
-  height: 100%;
-  overflow: overlay;
-  scrollbar-gutter: stable;
-
   background-image: url("../images/game_screen_day.png"),
     url("../images/game_screen_night.png");
   background-size: cover;

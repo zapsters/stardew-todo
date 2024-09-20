@@ -30,33 +30,33 @@
               <details open>
                 <summary><h3>Uncompleted Tasks [1]</h3></summary>
                 <ul id="uncompleted-tasks-list">
-                  <li class="taskbox">
+                  <li
+                    class="taskbox"
+                    id="taskElementTemplate"
+                    style="display: none">
                     <div class="upper">
                       <div class="icon--holder"><div class="icon"></div></div>
                       <div class="details">
-                        <h3>Take the trash out?!?!</h3>
+                        <h3 id="task--title">title</h3>
                         <div class="description">
-                          <p>
-                            A little description if needed. Though if it is too
-                            long I am not sure if it will mess anything up.
-                          </p>
+                          <p id="task--description">description</p>
                         </div>
                       </div>
                       <div class="stats">
                         <span>
                           <i class="goldIcon"></i>
-                          <p>200g</p>
+                          <p><span id="task--value"></span>g</p>
                         </span>
                         <span>
                           <i class="timeIcon"></i>
-                          <p>2 days<br /></p>
+                          <p id="task--timeRemaining"></p>
                         </span>
                       </div>
                     </div>
                     <div class="lower">
                       <span class="starRating">
-                        <i class="starFull"></i>
-                        <i class="starFull"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
                         <i class="starEmpty"></i>
                         <i class="starEmpty"></i>
                         <i class="starEmpty"></i>
@@ -98,7 +98,11 @@
                       <p>Title<span>*</span></p>
                     </td>
                     <td>
-                      <input type="text" autocomplete="off" name="taskTitle" />
+                      <input
+                        type="text"
+                        autocomplete="off"
+                        name="taskTitle"
+                        value="taskTitleHere!" />
                     </td>
                   </tr>
                   <tr>

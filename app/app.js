@@ -45,7 +45,7 @@ $("#sidebar-menu .tab").on("click", (e) => {
   });
 });
 
-export function updateStarDifficultyUi(current) {
+function updateStarDifficultyUi(current) {
   if (current == null) {
     const firstStarRadioBtn = createTaskStars[0];
     current = $(firstStarRadioBtn);
@@ -72,6 +72,7 @@ export function clear_form_elements(formId) {
         case "select-one":
         case "select-multiple":
         case "date":
+        case "datetime-local":
         case "number":
         case "tel":
         case "email":
@@ -83,17 +84,53 @@ export function clear_form_elements(formId) {
           break;
       }
     });
+  updateStarDifficultyUi();
 }
 
-let p = document.getElementById("para1");
+const rtf = new Intl.RelativeTimeFormat("en", {
+  localeMatcher: "best fit", // other values: "lookup"
+  numeric: "always", // other values: "auto"
+  style: "long", // other values: "short" or "narrow"
+});
 
-function createNewTaskElement() {
-  let p_prime = p.cloneNode(true);
+export function createNewTaskElement(taskObjectRef) {
+  if (taskElementTemplate == null) {
+    return console.error("task element template not found!");
+  }
+  console.log("new task object ", taskObjectRef);
+  let $newTaskObj = $("#taskElementTemplate").clone();
 
-  // add the text node to the newly created div
-  newDiv.appendChild(newContent);
+  $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
+  $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
+  $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
 
-  // add the newly created element and its content into the DOM
-  const currentDiv = document.getElementById("div1");
-  document.body.insertBefore(newDiv, currentDiv);
+  const date1 = Date.now();
+  const date2 = new Date(taskObjectRef["dueDate"]).getTime();
+  const diffTime = date2 - date1;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+  const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+  let timeRemaining = "null";
+  if (Math.abs(diffDays) > 1) {
+    timeRemaining = rtf.format(diffDays, "day"); // "in # days";
+  } else if (Math.abs(diffHours) > 1) {
+    timeRemaining = rtf.format(diffHours, "hours"); // "in # hours";
+  } else {
+    timeRemaining = rtf.format(diffMinutes, "minutes"); // "in # hours";
+  }
+
+  $newTaskObj.find("#task--timeRemaining").html(timeRemaining);
+
+  $newTaskObj
+    .find(".starRating")
+    .children()
+    .each(function (i) {
+      if (i + 1 <= taskObjectRef.starRating) {
+        $(this).addClass("starFull");
+      }
+    });
+
+  $newTaskObj.css("display", "block");
+  $newTaskObj.appendTo("#uncompleted-tasks-list");
 }
