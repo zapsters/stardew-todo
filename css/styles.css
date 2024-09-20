@@ -455,7 +455,7 @@ details {
 }
 
 details > summary {
-  list-style-image: url("/images/dropdownArrowRight.png");
+  list-style-image: url("../images/dropdownArrowRight.png");
   image-rendering: pixelated;
 }
 details > summary h3 {
@@ -463,7 +463,7 @@ details > summary h3 {
 }
 
 details[open] > summary {
-  list-style-image: url("/images/dropdownArrowDown.png");
+  list-style-image: url("../images/dropdownArrowDown.png");
 }
 
 input:not(input[type=radio]),
