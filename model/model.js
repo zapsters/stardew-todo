@@ -1,4 +1,15 @@
-import { createNewTaskElement, clear_form_elements } from "../app/app.js";
+import {
+  createNewTaskElement,
+  clear_form_elements,
+  updateTaskCountUI,
+} from "../app/app.js";
+
+let goldCounter = 0;
+function updateGoldCounter(difference = 0) {
+  goldCounter = goldCounter + parseInt(difference);
+  $("#goldDisplayCount").html(goldCounter);
+}
+updateGoldCounter();
 
 export function getArrayValue(array, objectName) {
   return array.find((x) => x.name === objectName).value;
@@ -19,8 +30,8 @@ export function submitCreateTaskForm(form) {
 }
 
 // ToDo List
-let uncompleteTasks = [];
-let completedTasks = [];
+export let uncompleteTasks = [];
+export let completedTasks = [];
 let createTaskFormResponseText = "#createTaskForm--responseText";
 
 const isWhitespaceString = (taskTitle) => !taskTitle.replace(/\s/g, "").length;
@@ -55,6 +66,26 @@ function createNewTask(taskDataObj) {
 export function readTaskList() {
   console.log("Uncomplete", uncompleteTasks);
   console.log("Completed!", completedTasks);
+}
+
+// Complete task
+export function completeTask(taskElement) {
+  // console.log("completeTaskCalled ", taskElement);
+  let taskElementIndex = taskElement.index();
+  // console.log("completedTaskIndex:", taskElementIndex);
+
+  var newlyCompletedTask = uncompleteTasks.splice(taskElementIndex, 1)[0];
+  taskElement.remove();
+
+  completedTasks.push(newlyCompletedTask);
+
+  createNewTaskElement(newlyCompletedTask, true);
+  updateGoldCounter(newlyCompletedTask["taskReward"]);
+
+  // update count
+  updateTaskCountUI();
+
+  return readTaskList();
 }
 
 // Cookies

@@ -26,7 +26,6 @@ function dateUpdate() {
   clockArrowRef.style.transform = "rotate(" + percentOfDayLeft * -180 + "deg)";
 }
 
-goldDisplayRef.innerHTML = "68711211";
 dateUpdate();
 
 var appTick = window.setInterval(function () {

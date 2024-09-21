@@ -28,8 +28,12 @@
             <div class="todo">
               <h2>All Tasks:</h2>
               <details open>
-                <summary><h3>Uncompleted Tasks [1]</h3></summary>
-                <ul id="uncompleted-tasks-list">
+                <summary>
+                  <h3>
+                    Uncompleted Tasks <span id="uncompleted-tasks-count"></span>
+                  </h3>
+                </summary>
+                <ul id="template">
                   <li
                     class="taskbox"
                     id="taskElementTemplate"
@@ -62,7 +66,7 @@
                         <i class="starEmpty"></i>
                       </span>
                       <div class="options">
-                        <i class="checkmark tooltip">
+                        <i class="checkmark tooltip" id="taskcompletebtn">
                           <a href="#"></a>
                           <span class="tooltiptext">Complete Task</span></i
                         >
@@ -74,9 +78,15 @@
                     </div>
                   </li>
                 </ul>
+                <ul id="uncompleted-tasks-list"></ul>
               </details>
               <details>
-                <summary><h3>Completed Tasks [0]</h3></summary>
+                <summary>
+                  <h3>
+                    Completed Tasks <span id="completed-tasks-count"></span>
+                  </h3>
+                </summary>
+                <ul id="completed-tasks-list"></ul>
               </details>
             </div>
           </div>
@@ -283,7 +293,7 @@
       <div class="date"><p id="dateElement"></p></div>
       <div class="time"><p id="timeElement"></p></div>
       <div class="gold">
-        <span contenteditable="true" id="goldDisplayCount"></span>
+        <span id="goldDisplayCount"></span>
       </div>
       <div class="arrow" id="clockArrowElement"></div>
     </div>

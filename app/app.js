@@ -1,4 +1,17 @@
-import { submitCreateTaskForm } from "../model/model.js";
+import {
+  submitCreateTaskForm,
+  uncompleteTasks,
+  completedTasks,
+  completeTask,
+} from "../model/model.js";
+
+function initListeners() {
+  updateTaskCountUI();
+}
+
+$(document).ready(function () {
+  initListeners();
+});
 
 export const createTaskStars = [
   "#createTaskStarRadio1",
@@ -93,16 +106,24 @@ const rtf = new Intl.RelativeTimeFormat("en", {
   style: "long", // other values: "short" or "narrow"
 });
 
-export function createNewTaskElement(taskObjectRef) {
+export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   if (taskElementTemplate == null) {
     return console.error("task element template not found!");
   }
-  console.log("new task object ", taskObjectRef);
   let $newTaskObj = $("#taskElementTemplate").clone();
 
   $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
   $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
   $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
+
+  if (!isTaskComplete) {
+    $newTaskObj.find("#taskcompletebtn").on("click", function () {
+      let thisTaskObject = $(this).closest("li");
+
+      // Get the task's element in the list. Pass this to completeTask
+      completeTask($(this).closest("li"));
+    });
+  }
 
   const date1 = Date.now();
   const date2 = new Date(taskObjectRef["dueDate"]).getTime();
@@ -111,10 +132,15 @@ export function createNewTaskElement(taskObjectRef) {
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
   const diffMinutes = Math.floor(diffTime / (1000 * 60));
 
+  console.log("date1", date1, "date2", date2);
+  // console.log(diffDays);
+  // console.log(diffHours);
+  // console.log(diffMinutes);
+
   let timeRemaining = "null";
-  if (Math.abs(diffDays) > 1) {
+  if (Math.abs(diffDays) >= 1) {
     timeRemaining = rtf.format(diffDays, "day"); // "in # days";
-  } else if (Math.abs(diffHours) > 1) {
+  } else if (Math.abs(diffHours) >= 1) {
     timeRemaining = rtf.format(diffHours, "hours"); // "in # hours";
   } else {
     timeRemaining = rtf.format(diffMinutes, "minutes"); // "in # hours";
@@ -132,5 +158,21 @@ export function createNewTaskElement(taskObjectRef) {
     });
 
   $newTaskObj.css("display", "block");
-  $newTaskObj.appendTo("#uncompleted-tasks-list");
+  if (isTaskComplete) {
+    $newTaskObj.appendTo("#completed-tasks-list");
+  } else {
+    if (diffTime < 0) {
+      $newTaskObj.find("#task--timeRemaining").css("color", "red");
+    }
+    $newTaskObj.appendTo("#uncompleted-tasks-list");
+  }
+  updateTaskCountUI();
+}
+
+let completedTaskSpan = "#completed-tasks-count";
+let uncompletedTaskSpan = "#uncompleted-tasks-count";
+
+export function updateTaskCountUI() {
+  $(uncompletedTaskSpan).html(`[${uncompleteTasks.length}]`);
+  $(completedTaskSpan).html(`[${completedTasks.length}]`);
 }
