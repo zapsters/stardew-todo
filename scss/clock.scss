@@ -41,17 +41,17 @@
   .gold {
     // background-color: rgba(255, 0, 0, 0.476);
     position: absolute;
-    right: 19px;
+    right: 20px;
     top: 151px;
     margin: 0;
     display: flex;
     justify-content: right;
     span {
       white-space: nowrap;
-      font-size: 29px;
-      font-family: "stardewvalley", monospace;
+      font-size: 16px;
+      font-family: "stardewValleyMono", serif;
       font-weight: 800;
-      letter-spacing: 3.9px;
+      letter-spacing: -0.1px;
       font-variant-numeric: tabular-nums lining-nums;
       text-shadow: 2px 2px 1px #87110f72;
       color: #87110f;

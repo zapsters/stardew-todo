@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer_1">
+    <path class="cls-1" d="M28,20h8v4h-8v-4ZM28,40h8v4h-8v-4ZM20,28h4v8h-4v-8ZM24,24h4v4h-4v-4ZM36,24h4v4h-4v-4ZM24,36h4v4h-4v-4ZM36,36h4v4h-4v-4ZM40,28h4v8h-4v-8ZM24,4h4v8h-4V4ZM36,4h4v8h-4V4ZM28,0h8v4h-8V0ZM16,8h4v4h-4v-4ZM40,12h4v4h-4v-4ZM52,8h4v4h-4v-4ZM56,12h4v4h-4v-4ZM52,16h4v4h-4v-4ZM12,4h4v4h-4v-4ZM8,8h4v4h-4v-4ZM8,16h4v4h-4v-4ZM4,12h4v4h-4v-4ZM44,8h4v4h-4v-4ZM48,4h4v4h-4v-4ZM20,12h4v4h-4v-4ZM0,28h4v8H0v-8ZM4,24h8v4H4v-4ZM4,36h8v4H4v-4ZM64,28v8h-4v-8h4ZM60,24v4h-8v-4h8ZM60,36v4h-8v-4h8ZM12,20h4v4h-4v-4ZM48,20h4v4h-4v-4ZM24,60v-8h4v8h-4ZM36,60v-8h4v8h-4ZM28,64v-4h8v4h-8ZM16,56v-4h4v4h-4ZM40,52v-4h4v4h-4ZM52,56v-4h4v4h-4ZM56,52v-4h4v4h-4ZM52,48v-4h4v4h-4ZM12,60v-4h4v4h-4ZM8,56v-4h4v4h-4ZM8,48v-4h4v4h-4ZM4,52v-4h4v4h-4ZM44,56v-4h4v4h-4ZM48,60v-4h4v4h-4ZM20,52v-4h4v4h-4ZM12,44v-4h4v4h-4ZM48,44v-4h4v4h-4Z"/>
+  </g>
+</svg>

@@ -3,15 +3,8 @@ import {
   uncompleteTasks,
   completedTasks,
   completeTask,
+  createNewCategory,
 } from "../model/model.js";
-
-function initListeners() {
-  updateTaskCountUI();
-}
-
-$(document).ready(function () {
-  initListeners();
-});
 
 export const createTaskStars = [
   "#createTaskStarRadio1",
@@ -21,41 +14,118 @@ export const createTaskStars = [
   "#createTaskStarRadio5",
 ];
 
-// Create Task Form
-$("#createTaskForm").on("submit", function (e) {
-  e.preventDefault();
-  submitCreateTaskForm($(this));
-});
-
-$("#createTaskForm .starRating input").change(function () {
-  updateStarDifficultyUi($(this));
-});
-
+// References
+let completedTaskSpan = "#completed-tasks-count";
+let uncompletedTaskSpan = "#uncompleted-tasks-count";
 const sidebarMenus = ["#createTaskMenu", "#editTaskMenu"];
-$("#sidebar-menu .tab").on("click", (e) => {
-  let clickedTab = e.currentTarget;
-  // console.log(clickedTab);
+const mainSectionMenus = ["#taskMenu", "#otherMenu", "#settingsMenu"];
 
-  // If we are clicking on an already active tab, ignore this input.
-  // if ($(clickedTab).hasClass("tab--active")) {
-  //   return;
-  // }
+// Date formating settings
+const rtf = new Intl.RelativeTimeFormat("en", {
+  localeMatcher: "best fit", // other values: "lookup"
+  numeric: "always", // other values: "auto"
+  style: "long", // other values: "short" or "narrow"
+});
 
-  let clickedTabId = clickedTab.id;
-  sidebarMenus.forEach((menu) => {
-    if (menu == `#${clickedTabId}Menu`) {
-      $(menu).css("display", "block");
-    } else {
-      $(menu).css("display", "none");
+function initListeners() {
+  updateTaskCountUI();
+  // Add listener for createTaskSubmit event
+  $("#createTaskForm").on("submit", function (e) {
+    e.preventDefault();
+    submitCreateTaskForm($(this));
+  });
+
+  // On starRating difficulty change
+  $("#createTaskForm .starRating input").change(function () {
+    updateStarDifficultyUi($(this));
+  });
+
+  // Main menu change logic
+  $("#main-menu .tabElement .tab").on("click", (e) => {
+    let clickedTab = e.currentTarget;
+
+    // If we are clicking on an already active tab, ignore this input.
+    if ($(clickedTab).hasClass("tab--active")) {
+      return;
+    }
+    // console.log(clickedTab);
+
+    let clickedTabId = clickedTab.id;
+    mainSectionMenus.forEach((menu) => {
+      if (menu == `#${clickedTabId}Menu`) {
+        $(menu).css("display", "block");
+      } else {
+        $(menu).css("display", "none");
+      }
+    });
+    $("#main-menu > .tabElement .tab").each(function () {
+      if ($(this).attr("id") == clickedTabId) {
+        $(this).addClass("tab--active");
+      } else {
+        $(this).removeClass("tab--active");
+      }
+    });
+  });
+
+  // Sidebar menu change logic
+  $("#sidebar-menu .tabElement .tab").on("click", (e) => {
+    let clickedTab = e.currentTarget;
+
+    // If we are clicking on an already active tab, ignore this input.
+    if ($(clickedTab).hasClass("tab--active")) {
+      return;
+    }
+    console.log(clickedTab);
+
+    let clickedTabId = clickedTab.id;
+    sidebarMenus.forEach((menu) => {
+      if (menu == `#${clickedTabId}Menu`) {
+        $(menu).css("display", "block");
+      } else {
+        $(menu).css("display", "none");
+      }
+    });
+    $("#sidebar-menu > .tabElement .tab").each(function () {
+      if ($(this).attr("id") == clickedTabId) {
+        $(this).addClass("tab--active");
+      } else {
+        $(this).removeClass("tab--active");
+      }
+    });
+  });
+
+  // CreateTask Category Dropdown
+  $("#categorySelect").on("change", function () {
+    let thisSelectObj = $(this);
+    switch ($("#categorySelect option:selected").attr("action")) {
+      case "newCategory":
+        let newCategoryResponse = prompt("Enter new category name:", "");
+        if (newCategoryResponse == null || newCategoryResponse == "") {
+          // alert("category name invalid, terminating");
+          return;
+        } else {
+          createNewCategory(newCategoryResponse);
+        }
+
+        thisSelectObj.val("").change();
+        break;
+
+      default:
+        break;
     }
   });
-  $("#sidebar-menu > .tab").each(function () {
-    if ($(this).attr("id") == clickedTabId) {
-      $(this).addClass("tab--active");
-    } else {
-      $(this).removeClass("tab--active");
-    }
-  });
+}
+
+$(document).ready(function () {
+  // Check Storage Availability
+  if (typeof Storage !== "undefined") {
+    // Code for localStorage/sessionStorage.
+  } else {
+    alert(
+      "storage method not found, you may encounter issues with saved data on this site."
+    );
+  }
+  initListeners();
 });
 
 function updateStarDifficultyUi(current) {
@@ -100,12 +170,6 @@ export function clear_form_elements(formId) {
   updateStarDifficultyUi();
 }
 
-const rtf = new Intl.RelativeTimeFormat("en", {
-  localeMatcher: "best fit", // other values: "lookup"
-  numeric: "always", // other values: "auto"
-  style: "long", // other values: "short" or "narrow"
-});
-
 export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   if (taskElementTemplate == null) {
     return console.error("task element template not found!");
@@ -126,7 +190,7 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   }
 
   const date1 = Date.now();
-  const date2 = new Date(taskObjectRef["dueDate"]).getTime();
+  const date2 = taskObjectRef["dueDate"];
   const diffTime = date2 - date1;
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
@@ -168,9 +232,6 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   }
   updateTaskCountUI();
 }
-
-let completedTaskSpan = "#completed-tasks-count";
-let uncompletedTaskSpan = "#uncompleted-tasks-count";
 
 export function updateTaskCountUI() {
   $(uncompletedTaskSpan).html(`[${uncompleteTasks.length}]`);

@@ -50,19 +50,21 @@ i {
 
 .tooltip {
   z-index: 100;
-  display: inline-block;
   position: relative;
 }
 
-.tooltip .tooltiptext {
+.tooltiptext {
   background-color: rgba(0, 0, 0, 0.648);
-  position: absolute;
   color: #fff;
   text-align: center;
-  border-radius: 4px;
-  padding: 3px 4px 0px 4px;
   overflow: visible;
   visibility: hidden;
+  padding: 3px 4px 0px 4px !important;
+  border-radius: 4px;
+}
+
+.tooltip .tooltiptext {
+  position: absolute;
   margin-bottom: 4px;
 
   /* Position the tooltip */
@@ -106,7 +108,8 @@ details[open] > summary {
 }
 
 input:not(input[type="radio"]),
-textarea {
+textarea,
+select {
   position: relative;
   background-color: #f9ba66;
   border: none;

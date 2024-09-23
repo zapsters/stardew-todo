@@ -35,8 +35,7 @@
     max-width: $app-wrapper-width;
     width: 100%;
     margin: 0 auto;
-    height: 100%;
-    max-height: calc(100vh - 230px);
+    min-height: 100%;
 
     .titleBox {
       text-align: center;
@@ -44,31 +43,30 @@
       overflow: visible;
       flex: 1;
       padding: 10px 13px;
-      // width: calc(100% - 240px);
+      width: calc(100% - 240px);
       @include menuBorderTypeA;
     }
     .main {
       display: flex;
-      align-items: stretch;
-      height: 100%;
-      justify-content: stretch;
+      align-items: flex-start;
       margin-top: 50px;
-      width: 100%;
-      flex: 1;
-      // overflow: hidden;
-      // @include menuBorderTypeA;
+      max-height: calc(100vh);
       padding: 0px 0px;
       gap: 70px;
-      min-height: 600px;
+      padding-bottom: 200px;
       ::-webkit-scrollbar {
         display: none;
       }
-      .todo {
+      .container {
+        // height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
         flex: 1;
         padding: 10px;
         padding-right: 0px;
+        ::-webkit-scrollbar {
+          display: block;
+        }
         details {
           margin-bottom: 0px;
           summary {
@@ -98,47 +96,95 @@
         margin-top: 70px;
         @include menuBorderTypeA;
         .tab-menu {
+          padding-top: 30px;
+          margin-top: -30px;
           display: flex;
           align-items: center;
-          justify-content: space-evenly;
+          justify-content: flex-start;
           position: absolute;
           top: -84px;
+          width: 100%;
 
-          .tab {
-            cursor: pointer;
-            position: relative;
-            image-rendering: pixelated;
+          .tabElement.right {
+            flex: 1;
+            align-items: flex-end;
+            justify-content: flex-end;
+            text-align: right;
+          }
+
+          .tabElement:has(.tab:hover) .tabTooltip .tooltiptext {
+            visibility: visible;
+          }
+          .tabElement {
             width: 64px;
             height: 64px;
-            background-image: none, $tab-background-url;
-            background-size: 58%, cover;
-            background-position: 50% 77%, center;
-            background-repeat: no-repeat;
-
+            position: relative;
             display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-
-            p,
-            span {
+            .tab {
               position: relative;
-              top: 8px;
-              margin: 0;
-              padding: 0;
+              cursor: pointer;
+              image-rendering: pixelated;
+              width: 64px;
+              height: 64px;
+              background-image: none, $tab-background-url;
+              background-size: 45%, cover;
+              background-position: 50% 70%, center;
+              background-repeat: no-repeat;
+
+              display: flex;
+              align-items: center;
+              justify-content: space-evenly;
+
+              p,
+              span {
+                font-size: 22px;
+                position: relative;
+                top: 8px;
+                margin: 0 0 0 0;
+                padding: 0;
+
+                // line-height: 5px;
+              }
+              .tab--icon {
+                width: 100%;
+                height: 100%;
+                background-image: url("../images/icons/taskIcon.png");
+                background-size: 40%;
+                background-position: center 75%;
+                background-repeat: no-repeat;
+                background-position: center calc(50% + 7px);
+              }
+              .tab--icon--task {
+                background-image: url("../images/icons/taskIcon.png");
+                background-position: center 75%;
+              }
+              .tab--icon--settings {
+                background-image: url("../images/icons/settingsIcon.svg");
+              }
             }
-          }
-          .tab--active {
-            top: 8px;
-          }
-          .tab--icon--task {
-            background-image: url("../images/tasksIcon.png"),
-              $tab-background-url;
+            .tab--active {
+              top: 8px;
+            }
+
+            .tabTooltip {
+              position: absolute;
+              top: -25px;
+              text-align: center;
+              visibility: visible;
+              text-wrap: nowrap;
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-evenly;
+              width: 100%;
+              max-width: 64px;
+            }
           }
         }
       }
 
       .create-task {
-        overflow: visible scroll;
+        height: 100%;
+        overflow: scroll scroll;
         padding-right: 8px;
         padding: 10px 13px;
         flex: 0.6;

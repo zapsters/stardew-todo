@@ -4,15 +4,15 @@ import {
   updateTaskCountUI,
 } from "../app/app.js";
 
+export let uncompleteTasks = [];
+export let completedTasks = [];
+let userCategories = [];
+let createTaskFormResponseText = "#createTaskForm--responseText";
 let goldCounter = 0;
-function updateGoldCounter(difference = 0) {
-  goldCounter = goldCounter + parseInt(difference);
-  $("#goldDisplayCount").html(goldCounter);
-}
-updateGoldCounter();
 
-export function getArrayValue(array, objectName) {
-  return array.find((x) => x.name === objectName).value;
+export function createNewCategory(categoryName) {
+  console.log("CREATE NEW CATEGORY: ", categoryName);
+  userCategories.push(categoryName);
 }
 
 export function submitCreateTaskForm(form) {
@@ -22,24 +22,9 @@ export function submitCreateTaskForm(form) {
   $(formArray).each(function (i, field) {
     taskDataObj[field.name] = field.value;
   });
-  let starRating = taskDataObj["starRating"];
-
-  taskDataObj["taskReward"] = Number(starRating) * 100;
-
-  createNewTask(taskDataObj);
-}
-
-// ToDo List
-export let uncompleteTasks = [];
-export let completedTasks = [];
-let createTaskFormResponseText = "#createTaskForm--responseText";
-
-const isWhitespaceString = (taskTitle) => !taskTitle.replace(/\s/g, "").length;
-
-function createNewTask(taskDataObj) {
   if (
-    isWhitespaceString(taskDataObj.taskTitle) ||
-    isWhitespaceString(taskDataObj.dueDate)
+    taskDataObj["taskTitle"].toString().trim().length === 0 ||
+    taskDataObj["dueDate"].toString().trim().length === 0
   ) {
     $(createTaskFormResponseText).css("color", "red");
     $(createTaskFormResponseText).html(
@@ -48,7 +33,20 @@ function createNewTask(taskDataObj) {
     return;
   }
 
+  let starRating = taskDataObj["starRating"];
+
+  taskDataObj["taskReward"] = Number(starRating) * 100;
+  taskDataObj["dueDate"] = new Date(taskDataObj["dueDate"]).getTime();
+
+  console.log();
+
+  createNewTask(taskDataObj);
+}
+
+function createNewTask(taskDataObj) {
   uncompleteTasks.push(taskDataObj);
+  uncompleteTasks = sortArrayByDueDate(uncompleteTasks);
+
   // console.log("== New Task Created ==");
   createNewTaskElement(taskDataObj);
 
@@ -61,6 +59,13 @@ function createNewTask(taskDataObj) {
     $(createTaskFormResponseText).html(``);
   }, 2000);
   return readTaskList();
+}
+
+function sortArrayByDueDate(taskArray) {
+  taskArray.sort(function (a, b) {
+    return parseInt(a["dueDate"]) - parseInt(b["dueDate"]);
+  });
+  return taskArray;
 }
 
 export function readTaskList() {
@@ -88,17 +93,12 @@ export function completeTask(taskElement) {
   return readTaskList();
 }
 
-// Cookies
-// console.log(Cookies.get());
-
-function deleteCookies() {
-  Cookies.remove("todo_task_array");
+function updateGoldCounter(difference = 0) {
+  goldCounter = goldCounter + parseInt(difference);
+  $("#goldDisplayCount").html(goldCounter);
 }
+updateGoldCounter();
 
-function readCookies() {
-  console.log(Cookies.get());
-}
-
-function setCookie(input) {
-  Cookies.set("todo_task_array", input);
+export function getArrayValue(array, objectName) {
+  return array.find((x) => x.name === objectName).value;
 }
