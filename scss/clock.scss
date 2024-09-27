@@ -4,7 +4,7 @@
   right: 3px;
   z-index: 101;
 
-  background-image: url("../images/clock_main.png");
+  background-image: url("../images/ui/clock_main.png");
   aspect-ratio: 72 / 59;
   height: 190px;
 
@@ -42,12 +42,19 @@
     // background-color: rgba(255, 0, 0, 0.476);
     position: absolute;
     right: 20px;
+    // max-width: 170px;
+    // max-height: 30px;
     top: 151px;
     margin: 0;
     display: flex;
     justify-content: right;
     span {
       white-space: nowrap;
+      top: 0;
+      width: 100%;
+      text-align: right;
+      overflow: hidden;
+      white-space: wrap;
       font-size: 16px;
       font-family: "stardewValleyMono", serif;
       font-weight: 800;
@@ -65,7 +72,7 @@
   }
 
   .arrow {
-    background-image: url("../images/ClockArrow.png");
+    background-image: url("../images/ui/ClockArrow.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

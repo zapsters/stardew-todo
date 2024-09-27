@@ -32,20 +32,25 @@ i {
 }
 
 .checkmark {
-  background-image: url("../images/checkMark.png");
+  background-image: url("../images/ui/checkMark.png");
+  cursor: pointer;
+  @include opacityHoverUi;
+}
+.taskXbtn {
+  background-image: url("../images/ui/Xbtn.png");
   cursor: pointer;
   @include opacityHoverUi;
 }
 .taskSettings {
-  background-image: url("../images/taskSettings.png");
+  background-image: url("../images/ui/taskSettings.png");
   cursor: pointer;
   @include opacityHoverUi;
 }
 .timeIcon {
-  background-image: url("../images/timeIcon.png");
+  background-image: url("../images/ui/timeIcon.png");
 }
 .goldIcon {
-  background-image: url("../images/goldIcon.png");
+  background-image: url("../images/ui/goldIcon.png");
 }
 
 .tooltip {
@@ -96,7 +101,7 @@ details {
 }
 
 details > summary {
-  list-style-image: url("../images/dropdownArrowRight.png");
+  list-style-image: url("../images/ui/dropdownArrowRight.png");
   image-rendering: pixelated;
   h3 {
     margin-left: 4px;
@@ -104,12 +109,17 @@ details > summary {
 }
 
 details[open] > summary {
-  list-style-image: url("../images/dropdownArrowDown.png");
+  list-style-image: url("../images/ui/dropdownArrowDown.png");
+}
+
+input:disabled {
+  color: black;
 }
 
 input:not(input[type="radio"]),
 textarea,
 select {
+  cursor: pointer;
   position: relative;
   background-color: #f9ba66;
   border: none;
@@ -120,7 +130,7 @@ select {
     #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px,
     #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px,
     #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
-  margin: 12px 8px 12px 12px;
+  margin: 12px 8px 17px 12px;
 
   font-family: "stardewValleyItem";
   font-size: 20px;
@@ -131,6 +141,11 @@ select {
   // max-width: $input-box-maxsize;
   min-width: 0px;
   min-height: 24px;
+  padding: 2px 0px;
+}
+
+input[type="button"] {
+  padding: 2px 10px;
 }
 
 table {

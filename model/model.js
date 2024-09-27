@@ -9,6 +9,29 @@ export let completedTasks = [];
 let userCategories = [];
 let createTaskFormResponseText = "#createTaskForm--responseText";
 let goldCounter = 0;
+let savedTaskData = [];
+
+function getSavedData() {
+  savedTaskData = localStorage.getItem("stardewtodo-taskdata");
+  return savedTaskData;
+}
+
+export function saveData() {
+  let saveDateButton = "#settings-saveBtn";
+  let lastSavedText = "#lastsavedtext";
+
+  savedTaskData = [uncompleteTasks, completedTasks];
+
+  // Update UI
+  $(saveDateButton).attr("disabled", true);
+  $(this).attr("value", "Data Saved!");
+  setTimeout(function (e) {
+    $(saveDateButton).attr("disabled", false);
+    $(saveDateButton).attr("value", "Save Data");
+  }, 1000);
+  let date = new Date();
+  $(lastSavedText).html(date.toLocaleString());
+}
 
 export function createNewCategory(categoryName) {
   console.log("CREATE NEW CATEGORY: ", categoryName);
@@ -30,6 +53,9 @@ export function submitCreateTaskForm(form) {
     $(createTaskFormResponseText).html(
       `<p style="color=red">Please fill all required information</p>`
     );
+    setTimeout(() => {
+      $(createTaskFormResponseText).html(`<p></p>`);
+    }, 2000);
     return;
   }
 
@@ -86,6 +112,24 @@ export function completeTask(taskElement) {
 
   createNewTaskElement(newlyCompletedTask, true);
   updateGoldCounter(newlyCompletedTask["taskReward"]);
+
+  // update count
+  updateTaskCountUI();
+
+  return readTaskList();
+}
+export function uncompleteTask(taskElement) {
+  // console.log("completeTaskCalled ", taskElement);
+  let taskElementIndex = taskElement.index();
+  // console.log("completedTaskIndex:", taskElementIndex);
+
+  var newlyUnCompletedTask = completedTasks.splice(taskElementIndex, 1)[0];
+  taskElement.remove();
+
+  uncompleteTasks.push(newlyUnCompletedTask);
+
+  createNewTaskElement(newlyUnCompletedTask, false);
+  updateGoldCounter(parseInt(newlyUnCompletedTask["taskReward"]) * -1);
 
   // update count
   updateTaskCountUI();

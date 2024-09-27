@@ -45,6 +45,55 @@
             <div class="container">
               <div class="todo" id="taskMenu">
                 <h2>All Tasks:</h2>
+                <ul id="template">
+                  <li
+                    class="taskbox"
+                    id="taskElementTemplate"
+                    style="display: block">
+                    <div class="upper">
+                      <div class="icon--holder"><div class="icon"></div></div>
+                      <div class="details">
+                        <h3 id="task--title">title</h3>
+                        <div class="description">
+                          <p id="task--description">
+                            this is the template for all task objects.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="stats">
+                        <span>
+                          <i class="goldIcon"></i>
+                          <p><span id="task--value"></span>g</p>
+                        </span>
+                        <span>
+                          <i class="timeIcon"></i>
+                          <p id="task--timeRemaining">time</p>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="lower">
+                      <span class="starRating">
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                        <i class="starEmpty"></i>
+                      </span>
+                      <div class="options">
+                        <i class="checkmark tooltip" id="taskCompleteBtn">
+                          <span class="tooltiptext">Complete Task</span></i
+                        >
+                        <i class="taskXbtn tooltip" id="taskUncompleteBtn">
+                          <span class="tooltiptext">Uncomplete Task</span></i
+                        >
+                        <i class="taskSettings tooltip right">
+                          <span class="tooltiptext">Edit Task</span></i
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div id="taskList"></div>
                 <details open>
                   <summary>
                     <h3>
@@ -52,51 +101,6 @@
                       <span id="uncompleted-tasks-count"></span>
                     </h3>
                   </summary>
-                  <ul id="template">
-                    <li
-                      class="taskbox"
-                      id="taskElementTemplate"
-                      style="display: none">
-                      <div class="upper">
-                        <div class="icon--holder"><div class="icon"></div></div>
-                        <div class="details">
-                          <h3 id="task--title">title</h3>
-                          <div class="description">
-                            <p id="task--description">description</p>
-                          </div>
-                        </div>
-                        <div class="stats">
-                          <span>
-                            <i class="goldIcon"></i>
-                            <p><span id="task--value"></span>g</p>
-                          </span>
-                          <span>
-                            <i class="timeIcon"></i>
-                            <p id="task--timeRemaining"></p>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="lower">
-                        <span class="starRating">
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                        </span>
-                        <div class="options">
-                          <i class="checkmark tooltip" id="taskcompletebtn">
-                            <a href="#"></a>
-                            <span class="tooltiptext">Complete Task</span></i
-                          >
-                          <i class="taskSettings tooltip right">
-                            <a href="#"></a>
-                            <span class="tooltiptext">Edit Task</span></i
-                          >
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
                   <ul id="uncompleted-tasks-list"></ul>
                 </details>
                 <details>
@@ -113,6 +117,12 @@
               </div>
               <div class="settingsMenu" id="settingsMenu" style="display: none">
                 <h2>Settings</h2>
+                <input type="button" value="Save Data" id="settings-saveBtn" />
+                <input
+                  type="button"
+                  value="Delete Save Data"
+                  id="settings-deleteSaveDataBtn" />
+                <p>Last Saved: <span id="lastsavedtext">no save data</span></p>
               </div>
             </div>
           </div>

@@ -3,7 +3,9 @@ import {
   uncompleteTasks,
   completedTasks,
   completeTask,
+  uncompleteTask,
   createNewCategory,
+  saveData,
 } from "../model/model.js";
 
 export const createTaskStars = [
@@ -27,8 +29,15 @@ const rtf = new Intl.RelativeTimeFormat("en", {
   style: "long", // other values: "short" or "narrow"
 });
 
+function saveDataInitListeners() {
+  $("#settings-saveBtn").on("click", function (e) {
+    saveData();
+  });
+}
+
 function initListeners() {
   updateTaskCountUI();
+  saveDataInitListeners();
   // Add listener for createTaskSubmit event
   $("#createTaskForm").on("submit", function (e) {
     e.preventDefault();
@@ -175,17 +184,28 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
     return console.error("task element template not found!");
   }
   let $newTaskObj = $("#taskElementTemplate").clone();
+  $newTaskObj.removeAttr("id");
 
   $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
   $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
   $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
+  // $newTaskObj.attr("task--data", taskObjectRef);
 
   if (!isTaskComplete) {
-    $newTaskObj.find("#taskcompletebtn").on("click", function () {
+    $newTaskObj.find("#taskUncompleteBtn").css("display", "none");
+    $newTaskObj.find("#taskCompleteBtn").on("click", function () {
       let thisTaskObject = $(this).closest("li");
 
       // Get the task's element in the list. Pass this to completeTask
       completeTask($(this).closest("li"));
+    });
+  } else {
+    $newTaskObj.find("#taskCompleteBtn").css("display", "none");
+    $newTaskObj.find("#taskUncompleteBtn").on("click", function () {
+      let thisTaskObject = $(this).closest("li");
+
+      // Get the task's element in the list. Pass this to completeTask
+      uncompleteTask($(this).closest("li"));
     });
   }
 
@@ -196,15 +216,16 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
   const diffMinutes = Math.floor(diffTime / (1000 * 60));
 
-  console.log("date1", date1, "date2", date2);
+  // console.log("date1", date1, "date2", date2);
+  // console.log(diffTime);
   // console.log(diffDays);
   // console.log(diffHours);
   // console.log(diffMinutes);
 
   let timeRemaining = "null";
-  if (Math.abs(diffDays) >= 1) {
+  if (diffDays >= 1 || (diffDays <= -1 && diffMinutes <= -60)) {
     timeRemaining = rtf.format(diffDays, "day"); // "in # days";
-  } else if (Math.abs(diffHours) >= 1) {
+  } else if (diffHours >= 1 || (diffHours < -1 && diffMinutes <= -60)) {
     timeRemaining = rtf.format(diffHours, "hours"); // "in # hours";
   } else {
     timeRemaining = rtf.format(diffMinutes, "minutes"); // "in # hours";
@@ -222,13 +243,15 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
     });
 
   $newTaskObj.css("display", "block");
-  if (isTaskComplete) {
-    $newTaskObj.appendTo("#completed-tasks-list");
+
+  if (!isTaskComplete) {
+    $newTaskObj.appendTo("#taskList");
   } else {
-    if (diffTime < 0) {
-      $newTaskObj.find("#task--timeRemaining").css("color", "red");
-    }
-    $newTaskObj.appendTo("#uncompleted-tasks-list");
+    $newTaskObj.appendTo("#completed-tasks-list");
+  }
+
+  if (!isTaskComplete && diffTime < 0) {
+    $newTaskObj.find("#task--timeRemaining").css("color", "red");
   }
   updateTaskCountUI();
 }
