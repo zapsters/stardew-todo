@@ -10,105 +10,163 @@
 
   display: flex;
   align-items: stretch;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: nowrap;
 
-  min-height: 100px;
-
-  .upper {
-    flex: 1;
+  .mainTaskContent {
     display: flex;
-    justify-content: space-between;
-    min-height: 58px;
-    gap: 4px;
-
-    .icon--holder {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-evenly;
-
-      .icon {
-        flex: 1;
-        width: 60px;
-        aspect-ratio: 1 / 1;
-        @include menuBorderTypeB;
-        background-image: url("../images/itemicons/note.png");
-        image-rendering: pixelated;
-        background-color: #00000038;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        border: solid #905f38 3px;
-      }
-    }
-
-    .details {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100px;
+    flex: 1;
+    .upper {
       flex: 1;
-      color: #2c0303;
-      h3 {
-        text-decoration: underline;
-        font-family: "stardewValley";
-        margin-bottom: 4px;
-      }
-      .description {
-        margin-left: 4px;
-      }
-    }
-
-    .stats {
       display: flex;
-      align-items: flex-start;
-      justify-content: right;
-      flex-direction: column;
-      gap: 2px;
-      flex: 0.3;
-      // max-width: 20%;
-      text-align: left;
-      margin-bottom: 10px;
+      justify-content: space-between;
+      min-height: 58px;
+      gap: 4px;
 
-      span {
+      .icon--holder {
         display: flex;
         align-items: flex-start;
         justify-content: space-evenly;
-        gap: 1px;
-        * {
-          display: inline-block;
-          white-space: wrap;
+
+        .icon {
+          flex: 1;
+          width: 60px;
+          aspect-ratio: 1 / 1;
+          @include menuBorderTypeB;
+          background-image: url("../images/itemicons/note.png");
+          image-rendering: pixelated;
+          background-color: #00000038;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border: solid #905f38 3px;
         }
+      }
+
+      .details {
+        flex: 1;
+        color: #2c0303;
+        h3 {
+          text-decoration: underline;
+          font-family: "stardewValley";
+          margin-bottom: 4px;
+        }
+        .description {
+          margin-left: 4px;
+        }
+      }
+
+      .stats {
+        display: flex;
+        align-items: flex-start;
+        justify-content: right;
+        flex-direction: column;
+        gap: 2px;
+        flex: 0.25;
+        // max-width: 20%;
+        text-align: left;
+        margin-bottom: 10px;
+
+        span {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-evenly;
+          gap: 1px;
+          * {
+            display: inline-block;
+            white-space: wrap;
+          }
+          i {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    .lower {
+      flex: 0;
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: nowrap;
+      row-gap: 4px;
+      justify-content: space-between;
+      padding: 0;
+      margin: 0 0 4px 0;
+
+      .options {
+        width: 100%;
+        display: block;
+        display: flex;
+        justify-content: right;
+        gap: 5px;
+        flex-grow: 0;
         i {
-          margin-right: 5px;
+          width: 35px;
+          height: 35px;
+          position: relative;
+          a {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+          }
         }
       }
     }
   }
-  .lower {
-    flex: 0;
-    display: flex;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    row-gap: 4px;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0 0 4px 0;
-
-    .options {
-      width: 100%;
-      display: block;
+  .goldCollect {
+    display: none;
+    // display: flex;
+    flex: 0.3;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 90px;
+    padding: 6px;
+    span {
+      transform: translateY(-10px);
+      line-height: 14px;
+      font-weight: 800;
+      text-align: center;
+    }
+    .uiBox {
+      cursor: pointer;
       display: flex;
-      justify-content: right;
-      gap: 5px;
-      flex-grow: 0;
-      i {
-        width: 35px;
-        height: 35px;
-        position: relative;
-        a {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          left: 0;
-        }
+      align-items: center;
+      justify-content: space-evenly;
+      aspect-ratio: 1 / 1;
+      background-image: url("../images/ui/uiSpriteContainer.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation-name: example;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-duration: 2s;
+
+      .goldIcon {
+        width: 100%;
+        height: 100%;
+        background-image: url("../images/icons/goldreward.png");
+        background-size: 55%;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
+  }
+}
+
+@keyframes example {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }

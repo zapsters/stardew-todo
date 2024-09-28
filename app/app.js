@@ -6,21 +6,26 @@ import {
   uncompleteTask,
   createNewCategory,
   saveData,
+  deleteSaveData,
+  getSavedData,
+  loadFromSavedData,
+  readTaskList,
 } from "../model/model.js";
-
-export const createTaskStars = [
-  "#createTaskStarRadio1",
-  "#createTaskStarRadio2",
-  "#createTaskStarRadio3",
-  "#createTaskStarRadio4",
-  "#createTaskStarRadio5",
-];
 
 // References
 let completedTaskSpan = "#completed-tasks-count";
 let uncompletedTaskSpan = "#uncompleted-tasks-count";
 const sidebarMenus = ["#createTaskMenu", "#editTaskMenu"];
 const mainSectionMenus = ["#taskMenu", "#otherMenu", "#settingsMenu"];
+const createTaskStars = [
+  "#createTaskStarRadio1",
+  "#createTaskStarRadio2",
+  "#createTaskStarRadio3",
+  "#createTaskStarRadio4",
+  "#createTaskStarRadio5",
+];
+let lastSavedText = "#lastsavedtext";
+var audioElement = null;
 
 // Date formating settings
 const rtf = new Intl.RelativeTimeFormat("en", {
@@ -29,12 +34,33 @@ const rtf = new Intl.RelativeTimeFormat("en", {
   style: "long", // other values: "short" or "narrow"
 });
 
-function saveDataInitListeners() {
-  $("#settings-saveBtn").on("click", function (e) {
-    saveData();
-  });
+// ON READY, Check for storage system, init listeners
+$(document).ready(function () {
+  // Check Storage Availability, if available, try to load save data.
+  if (typeof Storage !== "undefined") {
+    // Code for localStorage/sessionStorage.
+    loadFromSavedData();
+  } else {
+    alert(
+      "storage method not found, you may encounter issues with saved data on this site."
+    );
+    setLastSavedText("localStorage not found.");
+  }
+  initListeners();
+  audioElement = document.createElement("audio");
+  console.log(audioElement);
+});
+
+function playAudio(src) {
+  audioElement.setAttribute("src", src);
+  audioElement.play();
 }
 
+export function setLastSavedText(text) {
+  $("#lastsavedtext").html(text);
+}
+
+// Init functionality listeners
 function initListeners() {
   updateTaskCountUI();
   saveDataInitListeners();
@@ -45,8 +71,19 @@ function initListeners() {
   });
 
   // On starRating difficulty change
-  $("#createTaskForm .starRating input").change(function () {
-    updateStarDifficultyUi($(this));
+  $(".starRating input").change(function () {
+    let newValue = $(this).attr("value");
+    $(this)
+      .closest(".starRating")
+      .children("i")
+      .each(function () {
+        console.log("woah");
+        if ($(this).children("input").attr("value") <= newValue) {
+          $(this).css("background-image", "url(images/star_full.png)");
+        } else {
+          $(this).css("background-image", "url(images/star_empty.png)");
+        }
+      });
   });
 
   // Main menu change logic
@@ -84,7 +121,6 @@ function initListeners() {
     if ($(clickedTab).hasClass("tab--active")) {
       return;
     }
-    console.log(clickedTab);
 
     let clickedTabId = clickedTab.id;
     sidebarMenus.forEach((menu) => {
@@ -104,9 +140,9 @@ function initListeners() {
   });
 
   // CreateTask Category Dropdown
-  $("#categorySelect").on("change", function () {
+  $(".categorySelect").on("change", function () {
     let thisSelectObj = $(this);
-    switch ($("#categorySelect option:selected").attr("action")) {
+    switch ($(".categorySelect option:selected").attr("action")) {
       case "newCategory":
         let newCategoryResponse = prompt("Enter new category name:", "");
         if (newCategoryResponse == null || newCategoryResponse == "") {
@@ -125,60 +161,83 @@ function initListeners() {
   });
 }
 
-$(document).ready(function () {
-  // Check Storage Availability
-  if (typeof Storage !== "undefined") {
-    // Code for localStorage/sessionStorage.
-  } else {
-    alert(
-      "storage method not found, you may encounter issues with saved data on this site."
-    );
-  }
-  initListeners();
-});
-
-function updateStarDifficultyUi(current) {
-  if (current == null) {
-    const firstStarRadioBtn = createTaskStars[0];
-    current = $(firstStarRadioBtn);
-    $(current).prop("checked", true);
-  }
-  $.each(createTaskStars, (index, value) => {
-    if (index < current.val()) {
-      $(value).parent().css("background-image", "url(images/star_full.png)");
+// InitListeners for saveData Btns specifically
+function saveDataInitListeners() {
+  $("#settings-saveBtn").on("click", function (e) {
+    saveData();
+  });
+  $("#settings-deleteSaveDataBtn").on("click", function (e) {
+    deleteSaveData();
+  });
+  $("#settings-printSavedData").on("click", function (e) {
+    let savedDataLocal = getSavedData();
+    if (savedDataLocal != undefined) {
+      console.log(savedDataLocal);
     } else {
-      $(value).parent().css("background-image", "url(images/star_empty.png)");
+      console.log("no saved data found.");
     }
+  });
+  $("#settings-printTaskData").on("click", function (e) {
+    readTaskList();
   });
 }
 
-export function clear_form_elements(formId) {
-  jQuery(formId)
-    .find(":input")
-    .each(function () {
-      switch (this.type) {
-        case "password":
-        case "text":
-        case "textarea":
-        case "file":
-        case "select-one":
-        case "select-multiple":
-        case "date":
-        case "datetime-local":
-        case "number":
-        case "tel":
-        case "email":
-          jQuery(this).val("");
-          break;
-        case "checkbox":
-        case "radio":
-          this.checked = false;
-          break;
-      }
-    });
-  updateStarDifficultyUi();
+// Function for displaying text in the bottom left corner of the screen.
+let fadeEffect = null;
+export function screenImportantAlert(text, messageColor) {
+  let messageColorResult = "white";
+  switch (messageColor) {
+    case 1:
+      messageColorResult = "#13cf1c";
+      break;
+    case 2:
+      messageColorResult = "#cc1620";
+      break;
+  }
+
+  $("#screen-important-alerts").css("color", messageColorResult);
+  $("#screen-important-alerts").html(text);
+  $("#screen-important-alerts").css("opacity", 1);
+
+  var fadeTarget = document.getElementById("screen-important-alerts");
+  fadeTarget.style.opacity = 3; // Setting to greather than 1 gives buffer space for the fade effect without any visual difference.
+  clearInterval(fadeEffect);
+  fadeEffect = null;
+
+  fadeEffect = setInterval(function () {
+    console.log("working");
+
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+      fadeEffect = null;
+    }
+  }, 200);
 }
 
+// Called when the starDifficulty is selected. Star select is a ratio box, this code makes the stars gold or empty depending on input.
+// function updateStarDifficultyUi(current) {
+//   console.log(current[0].value);
+
+//   if (current == null) {
+//     const firstStarRadioBtn = createTaskStars[0];
+//     current = $(firstStarRadioBtn);
+//     $(current).prop("checked", true);
+//   }
+//   $.each(createTaskStars, (index, value) => {
+//     if (index < current.val()) {
+//       $(value).parent().css("background-image", "url(images/star_full.png)");
+//     } else {
+//       $(value).parent().css("background-image", "url(images/star_empty.png)");
+//     }
+//   });
+// }
+
+// Creates, populates, and appends to the DOM a task element.
 export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   if (taskElementTemplate == null) {
     return console.error("task element template not found!");
@@ -193,8 +252,16 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
 
   if (!isTaskComplete) {
     $newTaskObj.find("#taskUncompleteBtn").css("display", "none");
+
     $newTaskObj.find("#taskCompleteBtn").on("click", function () {
+      $newTaskObj.find(".stats").css("display", "none");
+      $newTaskObj.find(".options").css("display", "none");
+      $newTaskObj.find(".goldCollect").css("display", "flex");
+    });
+
+    $newTaskObj.find(".goldCollect").on("click", function () {
       let thisTaskObject = $(this).closest("li");
+      playAudio("../audio/000000f1_purchasepurchaseRepeat.mp3");
 
       // Get the task's element in the list. Pass this to completeTask
       completeTask($(this).closest("li"));
@@ -242,7 +309,7 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
       }
     });
 
-  $newTaskObj.css("display", "block");
+  $newTaskObj.css("display", "flex");
 
   if (!isTaskComplete) {
     $newTaskObj.appendTo("#taskList");
@@ -256,7 +323,35 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   updateTaskCountUI();
 }
 
+// Update count by the details / summary elements
 export function updateTaskCountUI() {
   $(uncompletedTaskSpan).html(`[${uncompleteTasks.length}]`);
   $(completedTaskSpan).html(`[${completedTasks.length}]`);
+}
+
+// Simple function to clear form elements easily.
+export function clear_form_elements(formId) {
+  jQuery(formId)
+    .find(":input")
+    .each(function () {
+      switch (this.type) {
+        case "password":
+        case "text":
+        case "textarea":
+        case "file":
+        case "select-one":
+        case "select-multiple":
+        case "date":
+        case "datetime-local":
+        case "number":
+        case "tel":
+        case "email":
+          jQuery(this).val("");
+          break;
+        case "checkbox":
+        case "radio":
+          this.checked = false;
+          break;
+      }
+    });
 }

@@ -49,51 +49,59 @@
                   <li
                     class="taskbox"
                     id="taskElementTemplate"
-                    style="display: block">
-                    <div class="upper">
-                      <div class="icon--holder"><div class="icon"></div></div>
-                      <div class="details">
-                        <h3 id="task--title">title</h3>
-                        <div class="description">
-                          <p id="task--description">
-                            this is the template for all task objects.
-                          </p>
+                    style="display: none">
+                    <div class="mainTaskContent">
+                      <div class="upper">
+                        <div class="icon--holder"><div class="icon"></div></div>
+                        <div class="details">
+                          <h3 id="task--title">title</h3>
+                          <div class="description">
+                            <p id="task--description">
+                              this is the template for all task objects.
+                            </p>
+                          </div>
+                        </div>
+                        <div class="stats">
+                          <span>
+                            <i class="goldIcon"></i>
+                            <p><span id="task--value"></span>g</p>
+                          </span>
+                          <span>
+                            <i class="timeIcon"></i>
+                            <p id="task--timeRemaining">time</p>
+                          </span>
                         </div>
                       </div>
-                      <div class="stats">
-                        <span>
-                          <i class="goldIcon"></i>
-                          <p><span id="task--value"></span>g</p>
+
+                      <div class="lower">
+                        <span class="starRating">
+                          <i class="starEmpty"></i>
+                          <i class="starEmpty"></i>
+                          <i class="starEmpty"></i>
+                          <i class="starEmpty"></i>
+                          <i class="starEmpty"></i>
                         </span>
-                        <span>
-                          <i class="timeIcon"></i>
-                          <p id="task--timeRemaining">time</p>
-                        </span>
+                        <div class="options">
+                          <i class="checkmark tooltip" id="taskCompleteBtn">
+                            <span class="tooltiptext">Complete Task</span></i
+                          >
+                          <i class="taskXbtn tooltip" id="taskUncompleteBtn">
+                            <span class="tooltiptext">Uncomplete Task</span></i
+                          >
+                          <i class="taskSettings tooltip right">
+                            <span class="tooltiptext">Edit Task</span></i
+                          >
+                        </div>
                       </div>
                     </div>
-                    <div class="lower">
-                      <span class="starRating">
-                        <i class="starEmpty"></i>
-                        <i class="starEmpty"></i>
-                        <i class="starEmpty"></i>
-                        <i class="starEmpty"></i>
-                        <i class="starEmpty"></i>
-                      </span>
-                      <div class="options">
-                        <i class="checkmark tooltip" id="taskCompleteBtn">
-                          <span class="tooltiptext">Complete Task</span></i
-                        >
-                        <i class="taskXbtn tooltip" id="taskUncompleteBtn">
-                          <span class="tooltiptext">Uncomplete Task</span></i
-                        >
-                        <i class="taskSettings tooltip right">
-                          <span class="tooltiptext">Edit Task</span></i
-                        >
+                    <div class="goldCollect">
+                      <!-- <span id="task--rewardValueText">0g</span> -->
+                      <div class="uiBox">
+                        <div class="goldIcon"></div>
                       </div>
                     </div>
                   </li>
                 </ul>
-                <div id="taskList"></div>
                 <details open>
                   <summary>
                     <h3>
@@ -101,6 +109,7 @@
                       <span id="uncompleted-tasks-count"></span>
                     </h3>
                   </summary>
+                  <ul id="taskList"></ul>
                   <ul id="uncompleted-tasks-list"></ul>
                 </details>
                 <details>
@@ -120,13 +129,22 @@
                 <input type="button" value="Save Data" id="settings-saveBtn" />
                 <input
                   type="button"
+                  value="Print Save Data"
+                  id="settings-printSavedData" />
+                <input
+                  type="button"
+                  value="Print Task Data"
+                  id="settings-printTaskData" />
+                <input
+                  style="color: rgb(247, 38, 11)"
+                  type="button"
                   value="Delete Save Data"
                   id="settings-deleteSaveDataBtn" />
-                <p>Last Saved: <span id="lastsavedtext">no save data</span></p>
+                <p>Last Saved: <span id="lastsavedtext"></span></p>
               </div>
             </div>
           </div>
-          <div class="menu" style="flex: 0.5" id="test">
+          <div class="menu" style="flex: 0.6">
             <div class="tab-menu" id="sidebar-menu">
               <div class="tabElement">
                 <div class="tab tab--active" id="createTask">
@@ -185,7 +203,10 @@
                       <p>Category</p>
                     </td>
                     <td>
-                      <select id="categorySelect" value="none" name="category">
+                      <select
+                        class="categorySelect"
+                        value="none"
+                        name="category">
                         <option value="">none</option>
                         <option value="null">● null</option>
                         <option action="newCategory" value="newCategory">
@@ -254,9 +275,108 @@
             </div>
             <div class="create-task" id="editTaskMenu" style="display: none">
               <h2>Edit Task:</h2>
-              <form id="editTaskForm">
+              <form id="createTaskForm">
                 <table>
-                  <tr></tr>
+                  <tr>
+                    <td>
+                      <p>Title<span>*</span></p>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        autocomplete="off"
+                        name="taskTitle"
+                        value="taskTitleHere!" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><p>Description</p></td>
+                    <td>
+                      <textarea
+                        autocomplete="off"
+                        name="taskDescription"
+                        rows="3"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Due Date<span>*</span></p>
+                    </td>
+                    <td>
+                      <input
+                        type="datetime-local"
+                        autocomplete="off"
+                        name="dueDate"
+                        id="" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Category</p>
+                    </td>
+                    <td>
+                      <select
+                        class="categorySelect"
+                        value="none"
+                        name="category">
+                        <option value="">none</option>
+                        <option value="null">● null</option>
+                        <option action="newCategory" value="newCategory">
+                          + New Category
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Difficulty</p>
+                    </td>
+                    <td>
+                      <span class="starRating selectable">
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio1"
+                            name="starRating"
+                            value="1"
+                            checked="1"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio2"
+                            name="starRating"
+                            value="2"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio3"
+                            name="starRating"
+                            value="3"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio4"
+                            name="starRating"
+                            value="4"
+                        /></i>
+                        <i
+                          ><input
+                            type="radio"
+                            id="createTaskStarRadio5"
+                            name="starRating"
+                            value="5"
+                        /></i>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <input type="submit" value="Create Task" />
+                    </td>
+                  </tr>
                   <tr>
                     <td id="editTaskForm--responseText">
                       <p></p>
@@ -269,11 +389,12 @@
         </div>
       </div>
     </div>
+    <p id="screen-important-alerts"></p>
     <div class="clock">
       <div class="date"><p id="dateElement"></p></div>
       <div class="time"><p id="timeElement"></p></div>
       <div class="gold">
-        <span id="goldDisplayCount" contenteditable="true"></span>
+        <span id="goldDisplayCount" contenteditable="false"></span>
       </div>
       <div class="arrow" id="clockArrowElement"></div>
     </div>

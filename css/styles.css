@@ -342,22 +342,22 @@ body {
 .clock .date {
   position: absolute;
   left: 87px;
-  top: 18px;
+  top: 17px;
   height: 32px;
   width: 126px;
   margin: 0;
-  font-size: 27px;
+  font-size: 28px;
   padding-left: 8px;
   pointer-events: none;
 }
 .clock .time {
   position: absolute;
   left: 87px;
-  top: 87px;
+  top: 90px;
   height: 32px;
   width: 126px;
   margin: 0;
-  font-size: 31px;
+  font-size: 28px;
   padding-left: 8px;
   pointer-events: none;
 }
@@ -424,6 +424,17 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: transparent;
   opacity: 0;
+}
+
+#screen-important-alerts {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 4px 10px;
+  font-weight: 500;
+  color: white;
+  font-size: 24px;
+  text-shadow: 2px 2px 5px black;
 }
 
 i {
@@ -538,7 +549,6 @@ input:disabled {
 input:not(input[type=radio]),
 textarea,
 select {
-  cursor: pointer;
   position: relative;
   background-color: #f9ba66;
   border: none;
@@ -565,7 +575,8 @@ table td {
   padding-bottom: 4px;
 }
 
-input[type=submit] {
+input[type=submit],
+select {
   cursor: pointer;
 }
 
@@ -574,16 +585,17 @@ input[type=submit]:hover {
 }
 
 input:hover:not(input[type=radio]),
-textarea:hover {
+textarea:hover,
+select:hover {
   background-color: #ebab59;
   box-shadow: #ebab59 -4px 0px, #ebab59 4px 0px, #ebab59 0px 4px, #ebab59 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px, #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px, #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px, #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px, #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px, #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
 }
 
 input[type=date]::-webkit-inner-spin-button,
-input[type=date]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  width: 100%;
-  opacity: 0;
+input[type=date]::-webkit-calendar-picker-indicator,
+input[type=datetime-local]::-webkit-inner-spin-button,
+input[type=datetime-local]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
 }
 
 .taskbox {
@@ -597,23 +609,29 @@ input[type=date]::-webkit-calendar-picker-indicator {
   margin-right: 4px;
   display: flex;
   align-items: stretch;
+  flex-wrap: nowrap;
+}
+.taskbox .mainTaskContent {
+  display: flex;
+  align-items: stretch;
   flex-direction: column;
   gap: 10px;
   min-height: 100px;
+  flex: 1;
 }
-.taskbox .upper {
+.taskbox .mainTaskContent .upper {
   flex: 1;
   display: flex;
   justify-content: space-between;
   min-height: 58px;
   gap: 4px;
 }
-.taskbox .upper .icon--holder {
+.taskbox .mainTaskContent .upper .icon--holder {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
 }
-.taskbox .upper .icon--holder .icon {
+.taskbox .mainTaskContent .upper .icon--holder .icon {
   flex: 1;
   width: 60px;
   aspect-ratio: 1/1;
@@ -626,42 +644,42 @@ input[type=date]::-webkit-calendar-picker-indicator {
   background-repeat: no-repeat;
   border: solid #905f38 3px;
 }
-.taskbox .upper .details {
+.taskbox .mainTaskContent .upper .details {
   flex: 1;
   color: #2c0303;
 }
-.taskbox .upper .details h3 {
+.taskbox .mainTaskContent .upper .details h3 {
   text-decoration: underline;
   font-family: "stardewValley";
   margin-bottom: 4px;
 }
-.taskbox .upper .details .description {
+.taskbox .mainTaskContent .upper .details .description {
   margin-left: 4px;
 }
-.taskbox .upper .stats {
+.taskbox .mainTaskContent .upper .stats {
   display: flex;
   align-items: flex-start;
   justify-content: right;
   flex-direction: column;
   gap: 2px;
-  flex: 0.3;
+  flex: 0.25;
   text-align: left;
   margin-bottom: 10px;
 }
-.taskbox .upper .stats span {
+.taskbox .mainTaskContent .upper .stats span {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
   gap: 1px;
 }
-.taskbox .upper .stats span * {
+.taskbox .mainTaskContent .upper .stats span * {
   display: inline-block;
   white-space: wrap;
 }
-.taskbox .upper .stats span i {
+.taskbox .mainTaskContent .upper .stats span i {
   margin-right: 5px;
 }
-.taskbox .lower {
+.taskbox .mainTaskContent .lower {
   flex: 0;
   display: flex;
   align-items: flex-end;
@@ -671,7 +689,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   padding: 0;
   margin: 0 0 4px 0;
 }
-.taskbox .lower .options {
+.taskbox .mainTaskContent .lower .options {
   width: 100%;
   display: block;
   display: flex;
@@ -679,18 +697,67 @@ input[type=date]::-webkit-calendar-picker-indicator {
   gap: 5px;
   flex-grow: 0;
 }
-.taskbox .lower .options i {
+.taskbox .mainTaskContent .lower .options i {
   width: 35px;
   height: 35px;
   position: relative;
 }
-.taskbox .lower .options i a {
+.taskbox .mainTaskContent .lower .options i a {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
 }
+.taskbox .goldCollect {
+  display: none;
+  flex: 0.3;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 90px;
+  padding: 6px;
+}
+.taskbox .goldCollect span {
+  transform: translateY(-10px);
+  line-height: 14px;
+  font-weight: 800;
+  text-align: center;
+}
+.taskbox .goldCollect .uiBox {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  aspect-ratio: 1/1;
+  background-image: url("../images/ui/uiSpriteContainer.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation-name: example;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+}
+.taskbox .goldCollect .uiBox .goldIcon {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/icons/goldreward.png");
+  background-size: 55%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+@keyframes example {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .settingsMenu h2 {
   margin-bottom: 17px;
 }
