@@ -158,9 +158,23 @@
               .tab--icon--task {
                 background-image: url("../images/icons/taskIcon.png");
                 background-position: center 75%;
+                background-size: 50%;
               }
               .tab--icon--settings {
                 background-image: url("../images/icons/settingsIcon.svg");
+                image-rendering: pixelated;
+              }
+              .tab--icon--category {
+                background-image: url("../images/icons/categoryIcon.png");
+                image-rendering: pixelated;
+              }
+              .tab--icon--edit {
+                background-image: url("../images/icons/editIcon.png");
+                image-rendering: pixelated;
+              }
+              .tab--icon--add {
+                background-image: url("../images/icons/plusIcon.png");
+                image-rendering: pixelated;
               }
             }
             .tab--active {
@@ -175,7 +189,7 @@
               text-wrap: nowrap;
               display: flex;
               align-items: flex-end;
-              justify-content: space-evenly;
+              justify-content: center;
               width: 100%;
               max-width: 64px;
             }
