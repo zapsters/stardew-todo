@@ -10,6 +10,9 @@ import {
   getSavedData,
   loadFromSavedData,
   readTaskList,
+  beginEditingTask,
+  cancelEditingTask,
+  finishEditingTask,
 } from "../model/model.js";
 
 // References
@@ -30,8 +33,8 @@ var audioElement = null;
 // Date formating settings
 const rtf = new Intl.RelativeTimeFormat("en", {
   localeMatcher: "best fit", // other values: "lookup"
-  numeric: "always", // other values: "auto"
-  style: "long", // other values: "short" or "narrow"
+  numeric: "auto", // other values: "auto"
+  style: "short", // other values: "short" or "narrow"
 });
 
 // ON READY, Check for storage system, init listeners
@@ -48,7 +51,6 @@ $(document).ready(function () {
   }
   initListeners();
   audioElement = document.createElement("audio");
-  console.log(audioElement);
 });
 
 function playAudio(src) {
@@ -69,6 +71,18 @@ function initListeners() {
     e.preventDefault();
     submitCreateTaskForm($(this));
   });
+  $("#editTaskForm")
+    .find("#edit--cancel")
+    .on("click", function (e) {
+      e.preventDefault();
+      cancelEditingTask();
+    });
+  $("#editTaskForm")
+    .find("#edit--finishEditing")
+    .on("click", function (e) {
+      e.preventDefault();
+      finishEditingTask();
+    });
 
   // On starRating difficulty change
   $(".starRating input").change(function () {
@@ -77,7 +91,6 @@ function initListeners() {
       .closest(".starRating")
       .children("i")
       .each(function () {
-        console.log("woah");
         if ($(this).children("input").attr("value") <= newValue) {
           $(this).css("background-image", "url(images/star_full.png)");
         } else {
@@ -248,8 +261,13 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
   $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
   $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
-  // $newTaskObj.attr("task--data", taskObjectRef);
 
+  let taskObjectRefString = JSON.stringify(taskObjectRef);
+  $newTaskObj.attr("task--data", taskObjectRefString);
+
+  $newTaskObj.find("#taskEditBtn").on("click", function () {
+    beginEditingTask($(this).closest("li").attr("task--data"));
+  });
   if (!isTaskComplete) {
     $newTaskObj.find("#taskUncompleteBtn").css("display", "none");
 
@@ -312,7 +330,7 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   $newTaskObj.css("display", "flex");
 
   if (!isTaskComplete) {
-    $newTaskObj.appendTo("#taskList");
+    $newTaskObj.appendTo("#uncompleted-tasks-list");
   } else {
     $newTaskObj.appendTo("#completed-tasks-list");
   }

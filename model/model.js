@@ -44,12 +44,18 @@ export function loadFromSavedData() {
   updateGoldCounter(savedData.stats.gold);
   let saveDate = new Date(savedData.stats.saveDate);
   setLastSavedText(saveDate.toLocaleString());
-
-  savedData.uncompleteTasks.forEach((taskObject) => {
+  reloadTaskList();
+}
+function reloadTaskList() {
+  $("#uncompleted-tasks-count").html("[?]");
+  $("#completed-tasks-count").html("[?]");
+  $("#uncompleted-tasks-list").html("");
+  $("#completed-tasks-list").html("");
+  uncompleteTasks.forEach((taskObject) => {
     // console.log(taskObject);
     createNewTaskElement(taskObject);
   });
-  savedData.completedTasks.forEach((taskObject) => {
+  completedTasks.forEach((taskObject) => {
     // console.log(taskObject);
     createNewTaskElement(taskObject, true);
   });
@@ -103,31 +109,53 @@ export function createNewCategory(categoryName) {
 }
 
 // Logic for when the CreateTask form's submit button is pressed. Checks required forms.
-export function submitCreateTaskForm(form) {
+export function submitCreateTaskForm(
+  form,
+  alertResponse = createTaskFormResponseText,
+  createTask = true
+) {
   let formArray = form.serializeArray();
   let taskDataObj = {};
 
-  $(formArray).each(function (i, field) {
-    taskDataObj[field.name] = field.value;
-  });
   if (
-    taskDataObj["taskTitle"].toString().trim().length === 0 ||
-    taskDataObj["dueDate"].toString().trim().length === 0
+    formArray[0].value.trim().length === 0 ||
+    formArray[2].value.trim().length === 0
   ) {
-    $(createTaskFormResponseText).css("color", "red");
-    $(createTaskFormResponseText).html(
+    $(alertResponse).css("color", "red");
+    $(alertResponse).html(
       `<p style="color=red">Please fill all required information</p>`
     );
     setTimeout(() => {
-      $(createTaskFormResponseText).html(`<p></p>`);
+      $(alertResponse).html(`<p></p>`);
     }, 2000);
     return;
   }
 
+  $(formArray).each(function (i, field) {
+    switch (field.name) {
+      case "dueDate":
+        console.log("caught", field.value);
+
+        taskDataObj["dueDate"] = new Date(field.value).getTime();
+        taskDataObj["dueDateFormatted"] = new Date(field.value)
+          .toISOString()
+          .replace(/(?:\.\d{1,3})?Z$/, "");
+        console.log(taskDataObj["dueDate"]);
+
+        break;
+
+      default:
+        taskDataObj[field.name] = field.value;
+        break;
+    }
+  });
   let starRating = taskDataObj["starRating"];
   taskDataObj["taskReward"] = Number(starRating) * 100;
-  taskDataObj["dueDate"] = new Date(taskDataObj["dueDate"]).getTime();
-  createNewTask(taskDataObj);
+  if (createTask) {
+    createNewTask(taskDataObj);
+  } else {
+    return taskDataObj;
+  }
 }
 
 // add task to our task list variable.
@@ -151,7 +179,82 @@ function createNewTask(taskDataObj) {
   setTimeout(() => {
     $(createTaskFormResponseText).html(``);
   }, 2000);
+  saveData();
+
   return readTaskList();
+}
+
+let currentlyEditing = null;
+export function cancelEditingTask() {
+  currentlyEditing = null;
+  $("#editNoTaskSelected").css("display", "flex");
+  $("#editTaskForm").css("display", "none");
+}
+function containsObject(obj, list) {
+  var x;
+  for (x in list) {
+    if (deepEqual(list[x], obj)) {
+      return x;
+    }
+  }
+  return -1;
+}
+function deepEqual(x, y) {
+  const ok = Object.keys,
+    tx = typeof x,
+    ty = typeof y;
+  return x && y && tx === "object" && tx === ty
+    ? ok(x).length === ok(y).length &&
+        ok(x).every((key) => deepEqual(x[key], y[key]))
+    : x === y;
+}
+export function finishEditingTask() {
+  let newTaskData = submitCreateTaskForm(
+    $("#editTaskForm"),
+    $("#editTaskForm--responseText"),
+    false
+  );
+  if (newTaskData == undefined || newTaskData == null) {
+    console.log("finishEditing ABORTED");
+  }
+  console.log(newTaskData);
+  let index = -1;
+  if (containsObject(currentlyEditing, uncompleteTasks) != -1) {
+    index = containsObject(currentlyEditing, uncompleteTasks);
+    uncompleteTasks[index] = newTaskData;
+  } else if (containsObject(currentlyEditing, completedTasks) != -1) {
+    index = containsObject(currentlyEditing, completedTasks);
+    completedTasks[index] = newTaskData;
+  } else {
+    console.error("TASK TO EDIT NOT FOUND. ABORTING");
+  }
+  reloadTaskList();
+  cancelEditingTask();
+  saveData();
+}
+export function beginEditingTask(taskData) {
+  if (taskData == undefined || taskData == null) return;
+  let taskDataParsed = JSON.parse(taskData);
+  currentlyEditing = taskDataParsed;
+  $("#editNoTaskSelected").css("display", "none");
+  $("#editTaskForm").css("display", "block");
+  $("#editTask").click();
+
+  // Begin populating the field.
+  $("#editTaskForm").find("#edit--taskTitle").val(taskDataParsed.taskTitle);
+  $("#editTaskForm")
+    .find("#edit--taskDescription")
+    .val(taskDataParsed.taskDescription);
+  $("#editTaskForm")
+    .find("#edit--dueDate")
+    .val(taskDataParsed.dueDateFormatted);
+  $("#editTaskForm").find("#edit--category").val(taskDataParsed.category);
+  $("#editTaskForm")
+    .find(".starRating")
+    .children()
+    .eq(parseInt(taskDataParsed.starRating) - 1)
+    .find("input")
+    .click();
 }
 
 // Used to sort our tasks by their due dates.
@@ -183,7 +286,7 @@ export function completeTask(taskElement) {
 
   // update count
   updateTaskCountUI();
-
+  saveData();
   return readTaskList();
 }
 // Called when a task UNcomplete button is pressed. Same as complete task, but the opposite.
@@ -202,7 +305,7 @@ export function uncompleteTask(taskElement) {
 
   // update count
   updateTaskCountUI();
-
+  saveData();
   return readTaskList();
 }
 

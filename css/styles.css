@@ -259,6 +259,14 @@ body {
   padding: 10px 13px;
   flex: 0.6;
 }
+.app .wrapper .main .create-task #editNoTaskSelected {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.486);
+}
 .app .wrapper .main .create-task table tr {
   display: flex;
   align-items: flex-start;
@@ -576,6 +584,7 @@ table td {
 }
 
 input[type=submit],
+input[type=button],
 select {
   cursor: pointer;
 }

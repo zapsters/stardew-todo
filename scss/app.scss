@@ -190,6 +190,15 @@
         padding: 10px 13px;
         flex: 0.6;
 
+        #editNoTaskSelected {
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          color: white;
+          background-color: rgba(0, 0, 0, 0.486);
+        }
+
         table {
           tr {
             display: flex;
