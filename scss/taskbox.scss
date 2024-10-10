@@ -65,7 +65,8 @@
         justify-content: right;
         flex-direction: column;
         gap: 2px;
-        flex: 0.25;
+        flex: 0.2;
+        min-width: 130px;
         // max-width: 20%;
         text-align: left;
         margin-bottom: 10px;
@@ -87,18 +88,24 @@
     }
 
     .lower {
-      flex: 0;
       display: flex;
       align-items: flex-end;
-      flex-wrap: nowrap;
-      row-gap: 4px;
+      gap: 4px;
       justify-content: space-between;
       padding: 0;
       margin: 0 0 4px 0;
-
+      .left {
+        display: flex;
+        align-items: flex-start;
+        justify-content: left;
+        flex-direction: column;
+        gap: 5px;
+        flex: 1;
+        .categoryText {
+          font-size: 23px;
+        }
+      }
       .options {
-        width: 100%;
-        display: block;
         display: flex;
         justify-content: right;
         gap: 5px;

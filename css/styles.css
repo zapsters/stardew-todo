@@ -106,13 +106,13 @@ body {
 }
 .app .wrapper .titleBox {
   text-align: center;
-  margin: 0 auto;
+  margin-left: 15px;
   overflow: visible;
   flex: 1;
-  padding: 10px 13px;
-  width: calc(100% - 240px);
+  padding: 30px 13px;
+  width: 100%;
   background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
-  box-shadow: #d68f54 -4px 0px, #c47a48 0px -4px, #c47a48 -4px -4px, #d68f54 0px 4px, #c47a48 -4px 4px, #c47a48 8px -4px, #c47a48 8px 4px, #853605 -8px -8px, #853605 12px -8px, #853605 12px 8px, #853605 -8px 8px, #b14e05 8px -12px, #dc7b05 12px -12px, #b14e05 16px -4px, #dc7b05 16px -8px, #b14e05 16px -12px, #b14e05 16px 8px, #fa9305 0px 12px, #fa9305 4px 12px, #dc7b05 8px 12px, #b14e05 12px 12px, #853605 16px 12px, #dc7b05 -4px 12px, #b14e05 -8px 12px, #dc7b05 -12px 4px, #dc7b05 -12px -4px, #b14e05 -12px -8px, #b14e05 -8px -12px, #853605 -12px -12px, #b14e05 -12px 8px, #853605 -12px 12px, #fa9305 12px -16px, #dc7b05 16px -16px, #dc7b05 20px -12px, #dc7b05 20px 4px, #853605 20px -16px, #b14e05 20px 12px, #b14e05 16px 16px, #b14e05 -12px 16px, #853605 20px 16px, #b14e05 -16px 12px, #b14e05 -16px -12px, #853605 -16px 16px, #fa9305 4px -16px, #dc7b05 -4px -16px, #b14e05 -12px -16px, #853605 -16px -16px, #5b2b2a -12px -20px, #5b2b2a 16px -20px, #5b2b2a 24px -12px, #5b2b2a 24px 12px, #5b2b2a 16px 20px, #5b2b2a -12px 20px, #5b2b2a -20px 12px, #5b2b2a -20px -12px;
+  box-shadow: #d68f54 -3px 0px, #c47a48 0px -3px, #c47a48 -3px -3px, #d68f54 0px 3px, #c47a48 -3px 3px, #c47a48 6px -3px, #c47a48 6px 3px, #853605 -6px -6px, #853605 9px -6px, #853605 9px 6px, #853605 -6px 6px, #b14e05 6px -9px, #dc7b05 9px -9px, #b14e05 12px -3px, #dc7b05 12px -6px, #b14e05 12px -9px, #b14e05 12px 6px, #fa9305 0px 9px, #fa9305 3px 9px, #dc7b05 6px 9px, #b14e05 9px 9px, #853605 12px 9px, #dc7b05 -3px 9px, #b14e05 -6px 9px, #dc7b05 -9px 3px, #dc7b05 -9px -3px, #b14e05 -9px -6px, #b14e05 -6px -9px, #853605 -9px -9px, #b14e05 -9px 6px, #853605 -9px 9px, #fa9305 9px -12px, #dc7b05 12px -12px, #dc7b05 15px -9px, #dc7b05 15px 3px, #853605 15px -12px, #b14e05 15px 9px, #b14e05 12px 12px, #b14e05 -9px 12px, #853605 15px 12px, #b14e05 -12px 9px, #b14e05 -12px -9px, #853605 -12px 12px, #fa9305 3px -12px, #dc7b05 -3px -12px, #b14e05 -9px -12px, #853605 -12px -12px, #5b2b2a -9px -15px, #5b2b2a 12px -15px, #5b2b2a 18px -9px, #5b2b2a 18px 9px, #5b2b2a 12px 15px, #5b2b2a -9px 15px, #5b2b2a -15px 9px, #5b2b2a -15px -9px;
 }
 .app .wrapper .titleBox h1 {
   text-decoration: underline;
@@ -120,6 +120,9 @@ body {
 }
 .app .wrapper .titleBox ul {
   list-style-type: none;
+}
+.app .wrapper .titleBox h1 {
+  margin: 0;
 }
 .app .wrapper .main {
   display: flex;
@@ -137,8 +140,12 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   flex: 1;
+  min-height: 500px;
   padding: 10px;
   padding-right: 0px;
+}
+.app .wrapper .main .container h2 {
+  margin-bottom: 5px;
 }
 .app .wrapper .main .container ::-webkit-scrollbar {
   display: block;
@@ -165,7 +172,7 @@ body {
   position: relative;
   margin-top: 70px;
   background: linear-gradient(180deg, rgb(255, 203, 123) 0%, rgb(235, 168, 103) 100%);
-  box-shadow: #d68f54 -4px 0px, #c47a48 0px -4px, #c47a48 -4px -4px, #d68f54 0px 4px, #c47a48 -4px 4px, #c47a48 8px -4px, #c47a48 8px 4px, #853605 -8px -8px, #853605 12px -8px, #853605 12px 8px, #853605 -8px 8px, #b14e05 8px -12px, #dc7b05 12px -12px, #b14e05 16px -4px, #dc7b05 16px -8px, #b14e05 16px -12px, #b14e05 16px 8px, #fa9305 0px 12px, #fa9305 4px 12px, #dc7b05 8px 12px, #b14e05 12px 12px, #853605 16px 12px, #dc7b05 -4px 12px, #b14e05 -8px 12px, #dc7b05 -12px 4px, #dc7b05 -12px -4px, #b14e05 -12px -8px, #b14e05 -8px -12px, #853605 -12px -12px, #b14e05 -12px 8px, #853605 -12px 12px, #fa9305 12px -16px, #dc7b05 16px -16px, #dc7b05 20px -12px, #dc7b05 20px 4px, #853605 20px -16px, #b14e05 20px 12px, #b14e05 16px 16px, #b14e05 -12px 16px, #853605 20px 16px, #b14e05 -16px 12px, #b14e05 -16px -12px, #853605 -16px 16px, #fa9305 4px -16px, #dc7b05 -4px -16px, #b14e05 -12px -16px, #853605 -16px -16px, #5b2b2a -12px -20px, #5b2b2a 16px -20px, #5b2b2a 24px -12px, #5b2b2a 24px 12px, #5b2b2a 16px 20px, #5b2b2a -12px 20px, #5b2b2a -20px 12px, #5b2b2a -20px -12px;
+  box-shadow: #d68f54 -3px 0px, #c47a48 0px -3px, #c47a48 -3px -3px, #d68f54 0px 3px, #c47a48 -3px 3px, #c47a48 6px -3px, #c47a48 6px 3px, #853605 -6px -6px, #853605 9px -6px, #853605 9px 6px, #853605 -6px 6px, #b14e05 6px -9px, #dc7b05 9px -9px, #b14e05 12px -3px, #dc7b05 12px -6px, #b14e05 12px -9px, #b14e05 12px 6px, #fa9305 0px 9px, #fa9305 3px 9px, #dc7b05 6px 9px, #b14e05 9px 9px, #853605 12px 9px, #dc7b05 -3px 9px, #b14e05 -6px 9px, #dc7b05 -9px 3px, #dc7b05 -9px -3px, #b14e05 -9px -6px, #b14e05 -6px -9px, #853605 -9px -9px, #b14e05 -9px 6px, #853605 -9px 9px, #fa9305 9px -12px, #dc7b05 12px -12px, #dc7b05 15px -9px, #dc7b05 15px 3px, #853605 15px -12px, #b14e05 15px 9px, #b14e05 12px 12px, #b14e05 -9px 12px, #853605 15px 12px, #b14e05 -12px 9px, #b14e05 -12px -9px, #853605 -12px 12px, #fa9305 3px -12px, #dc7b05 -3px -12px, #b14e05 -9px -12px, #853605 -12px -12px, #5b2b2a -9px -15px, #5b2b2a 12px -15px, #5b2b2a 18px -9px, #5b2b2a 18px 9px, #5b2b2a 12px 15px, #5b2b2a -9px 15px, #5b2b2a -15px 9px, #5b2b2a -15px -9px;
 }
 .app .wrapper .main .menu h1 {
   text-decoration: underline;
@@ -181,7 +188,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   position: absolute;
-  top: -84px;
+  top: -79px;
   width: 100%;
 }
 .app .wrapper .main .menu .tab-menu .tabElement.right {
@@ -252,7 +259,7 @@ body {
   image-rendering: pixelated;
 }
 .app .wrapper .main .menu .tab-menu .tabElement .tab--active {
-  top: 8px;
+  top: 6px;
 }
 .app .wrapper .main .menu .tab-menu .tabElement .tabTooltip {
   position: absolute;
@@ -344,15 +351,30 @@ body {
 }
 
 @media (max-width: 750px) {
+  .app .wrapper {
+    padding: 0 50px;
+  }
+  .app .wrapper .titleBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: calc(100% - 200px);
+    text-align: left;
+    margin: 0;
+    padding: 24px 20px;
+    height: 125px;
+  }
   .app .wrapper .main {
     flex-direction: column;
+    align-items: stretch;
   }
 }
 .clock {
   position: fixed;
-  top: 14px;
-  right: 3px;
+  top: 0px;
+  right: -8px;
   z-index: 101;
+  transform: scale(0.9);
   background-image: url("../images/ui/clock_main.png");
   aspect-ratio: 72/59;
   height: 190px;
@@ -574,15 +596,15 @@ select {
   position: relative;
   background-color: #f9ba66;
   border: none;
-  box-shadow: #f9ba66 -4px 0px, #f9ba66 4px 0px, #f9ba66 0px 4px, #f9ba66 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px, #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px, #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px, #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px, #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px, #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
-  margin: 12px 8px 17px 12px;
+  box-shadow: #f9ba66 -3px 0px, #f9ba66 3px 0px, #f9ba66 0px 3px, #f9ba66 0px -3px, #e89c3a -3px 3px, #e89c3a 3px 3px, #e89c3a 3px -3px, #e89c3a -3px -3px, #dc7b05 -3px -6px, #dc7b05 3px -6px, #5b2b2a -3px -9px, #5b2b2a 3px -9px, #965c3a -6px -6px, #965c3a -6px 3px, #965c3a -3px 6px, #965c3a 3px 6px, #5b2b2a 6px 3px, #5b2b2a 6px -6px, #a7845f 6px -9px, #a7845f 6px 6px, #a7845f -6px 6px, #a7845f -6px -9px, #cb9c67 -9px -6px, #cb9c67 -9px 6px, #cb9c67 -6px 9px, #cb9c67 3px 9px, #cb9c67 -9px 0px;
+  margin: 8px 0px 10px 8px;
   font-family: "stardewValleyItem";
   font-size: 20px;
   border: 0;
   outline: none;
   min-width: 0px;
   min-height: 24px;
-  padding: 2px 0px;
+  padding: 0px 0px;
 }
 
 input[type=button] {
@@ -611,7 +633,13 @@ input:hover:not(input[type=radio]),
 textarea:hover,
 select:hover {
   background-color: #ebab59;
-  box-shadow: #ebab59 -4px 0px, #ebab59 4px 0px, #ebab59 0px 4px, #ebab59 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px, #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px, #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px, #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px, #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px, #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+  box-shadow: #ebab59 -3px 0px, #ebab59 3px 0px, #ebab59 0px 3px, #ebab59 0px -3px, #e89c3a -3px 3px, #e89c3a 3px 3px, #e89c3a 3px -3px, #e89c3a -3px -3px, #dc7b05 -3px -6px, #dc7b05 3px -6px, #5b2b2a -3px -9px, #5b2b2a 3px -9px, #965c3a -6px -6px, #965c3a -6px 3px, #965c3a -3px 6px, #965c3a 3px 6px, #5b2b2a 6px 3px, #5b2b2a 6px -6px, #a7845f 6px -9px, #a7845f 6px 6px, #a7845f -6px 6px, #a7845f -6px -9px, #cb9c67 -9px -6px, #cb9c67 -9px 6px, #cb9c67 -6px 9px, #cb9c67 3px 9px, #cb9c67 -9px 0px;
+}
+
+hr {
+  border: #853605 solid 1.3px;
+  width: 98%;
+  margin: 10px 0;
 }
 
 input[type=date]::-webkit-inner-spin-button,
@@ -685,7 +713,8 @@ input[type=datetime-local]::-webkit-calendar-picker-indicator {
   justify-content: right;
   flex-direction: column;
   gap: 2px;
-  flex: 0.25;
+  flex: 0.2;
+  min-width: 130px;
   text-align: left;
   margin-bottom: 10px;
 }
@@ -703,18 +732,25 @@ input[type=datetime-local]::-webkit-calendar-picker-indicator {
   margin-right: 5px;
 }
 .taskbox .mainTaskContent .lower {
-  flex: 0;
   display: flex;
   align-items: flex-end;
-  flex-wrap: nowrap;
-  row-gap: 4px;
+  gap: 4px;
   justify-content: space-between;
   padding: 0;
   margin: 0 0 4px 0;
 }
+.taskbox .mainTaskContent .lower .left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: left;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+.taskbox .mainTaskContent .lower .left .categoryText {
+  font-size: 23px;
+}
 .taskbox .mainTaskContent .lower .options {
-  width: 100%;
-  display: block;
   display: flex;
   justify-content: right;
   gap: 5px;

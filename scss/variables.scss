@@ -5,3 +5,17 @@ $input-box-maxsize: 150px;
 $font-size-scale: 10;
 $breakpoint-mobile: 750px;
 $tab-background-url: url("../images/ui/ui_tab.png");
+
+$ui-input-scale: 3;
+$ui-first: $ui-input-scale * 1px;
+$ui--first: $ui-input-scale * -1px;
+$ui-second: $ui-input-scale * 2px;
+$ui--second: $ui-input-scale * -2px;
+$ui-third: $ui-input-scale * 3px;
+$ui--third: $ui-input-scale * -3px;
+$ui-four: $ui-input-scale * 4px;
+$ui--four: $ui-input-scale * -4px;
+$ui-five: $ui-input-scale * 5px;
+$ui--five: $ui-input-scale * -5px;
+$ui-six: $ui-input-scale * 6px;
+$ui--six: $ui-input-scale * -6px;

@@ -13,13 +13,15 @@ import {
   beginEditingTask,
   cancelEditingTask,
   finishEditingTask,
+  userCategories,
+  reloadCategoryScreenTasks,
 } from "../model/model.js";
 
 // References
 let completedTaskSpan = "#completed-tasks-count";
 let uncompletedTaskSpan = "#uncompleted-tasks-count";
 const sidebarMenus = ["#createTaskMenu", "#editTaskMenu"];
-const mainSectionMenus = ["#taskMenu", "#otherMenu", "#settingsMenu"];
+const mainSectionMenus = ["#taskMenu", "#categoryMenu", "#settingsMenu"];
 const createTaskStars = [
   "#createTaskStarRadio1",
   "#createTaskStarRadio2",
@@ -44,12 +46,11 @@ $(document).ready(function () {
     // Code for localStorage/sessionStorage.
     loadFromSavedData();
   } else {
-    alert(
-      "storage method not found, you may encounter issues with saved data on this site."
-    );
+    alert("storage method not found, you may encounter issues with saved data on this site.");
     setLastSavedText("localStorage not found.");
   }
   initListeners();
+  updateCategoryUI();
   audioElement = document.createElement("audio");
 });
 
@@ -153,25 +154,44 @@ function initListeners() {
   });
 
   // CreateTask Category Dropdown
+
   $(".categorySelect").on("change", function () {
     let thisSelectObj = $(this);
-    switch ($(".categorySelect option:selected").attr("action")) {
+    switch ($(this).find("option:selected").attr("action")) {
       case "newCategory":
         let newCategoryResponse = prompt("Enter new category name:", "");
         if (newCategoryResponse == null || newCategoryResponse == "") {
           // alert("category name invalid, terminating");
+          updateCategoryUI();
           return;
         } else {
           createNewCategory(newCategoryResponse);
         }
 
-        thisSelectObj.val("").change();
+        thisSelectObj.val("none");
         break;
-
       default:
+        if (thisSelectObj[0].id == "categoryScreenSelect") {
+        }
         break;
     }
   });
+  $("#categoryScreenSelect").on("change", function () {
+    reloadCategoryScreenTasks($(this).find("option:selected").attr("value"));
+  });
+}
+
+export function updateCategoryUI() {
+  $(".categorySelect option").remove();
+  // $(".categorySelect").append(`<option value="none">none</option>`);
+  if (userCategories != undefined) {
+    userCategories.forEach((category) => {
+      $(".categorySelect").append(`<option value="${category}">${category}</option>`);
+    });
+  }
+  $(".categorySelect").append(`<option action="newCategory" value="newCategory">
+                    + New Category
+                  </option>`);
 }
 
 // InitListeners for saveData Btns specifically
@@ -213,13 +233,11 @@ export function screenImportantAlert(text, messageColor) {
   $("#screen-important-alerts").css("opacity", 1);
 
   var fadeTarget = document.getElementById("screen-important-alerts");
-  fadeTarget.style.opacity = 3; // Setting to greather than 1 gives buffer space for the fade effect without any visual difference.
+  fadeTarget.style.opacity = 1.5; // Setting to greather than 1 gives buffer space for the fade effect without any visual difference.
   clearInterval(fadeEffect);
   fadeEffect = null;
 
   fadeEffect = setInterval(function () {
-    console.log("working");
-
     if (!fadeTarget.style.opacity) {
       fadeTarget.style.opacity = 1;
     }
@@ -251,7 +269,7 @@ export function screenImportantAlert(text, messageColor) {
 // }
 
 // Creates, populates, and appends to the DOM a task element.
-export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
+export function createNewTaskElement(taskObjectRef, appendTo, isTaskComplete = false) {
   if (taskElementTemplate == null) {
     return console.error("task element template not found!");
   }
@@ -261,6 +279,12 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
   $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
   $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
+  console.log(taskObjectRef["category"]);
+
+  if (taskObjectRef["category"] != "none")
+    $newTaskObj.find("#categoryText").html(`${taskObjectRef["category"]}`);
+
+  // categoryText;
 
   let taskObjectRefString = JSON.stringify(taskObjectRef);
   $newTaskObj.attr("task--data", taskObjectRefString);
@@ -297,26 +321,30 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
   const date1 = Date.now();
   const date2 = taskObjectRef["dueDate"];
   const diffTime = date2 - date1;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-  const diffMinutes = Math.floor(diffTime / (1000 * 60));
+  if (date2 != "none") {
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffMinutes = Math.floor(diffTime / (1000 * 60));
 
-  // console.log("date1", date1, "date2", date2);
-  // console.log(diffTime);
-  // console.log(diffDays);
-  // console.log(diffHours);
-  // console.log(diffMinutes);
+    // console.log("date1", date1, "date2", date2);
+    // console.log(diffTime);
+    // console.log(diffDays);
+    // console.log(diffHours);
+    // console.log(diffMinutes);
 
-  let timeRemaining = "null";
-  if (diffDays >= 1 || (diffDays <= -1 && diffMinutes <= -60)) {
-    timeRemaining = rtf.format(diffDays, "day"); // "in # days";
-  } else if (diffHours >= 1 || (diffHours < -1 && diffMinutes <= -60)) {
-    timeRemaining = rtf.format(diffHours, "hours"); // "in # hours";
+    let timeRemaining = "null";
+    if (diffDays >= 1 || (diffDays <= -1 && diffMinutes <= -60)) {
+      timeRemaining = rtf.format(diffDays, "day"); // "in # days";
+    } else if (diffHours >= 1 || (diffHours < -1 && diffMinutes <= -60)) {
+      timeRemaining = rtf.format(diffHours, "hours"); // "in # hours";
+    } else {
+      timeRemaining = rtf.format(diffMinutes, "minutes"); // "in # hours";
+    }
+    $newTaskObj.find("#task--timeRemaining").html(timeRemaining);
   } else {
-    timeRemaining = rtf.format(diffMinutes, "minutes"); // "in # hours";
+    $newTaskObj.find("#task--timeRemaining").html("");
+    $newTaskObj.find(".timeIcon").css("display", "none");
   }
-
-  $newTaskObj.find("#task--timeRemaining").html(timeRemaining);
 
   $newTaskObj
     .find(".starRating")
@@ -329,11 +357,7 @@ export function createNewTaskElement(taskObjectRef, isTaskComplete = false) {
 
   $newTaskObj.css("display", "flex");
 
-  if (!isTaskComplete) {
-    $newTaskObj.appendTo("#uncompleted-tasks-list");
-  } else {
-    $newTaskObj.appendTo("#completed-tasks-list");
-  }
+  $newTaskObj.appendTo(appendTo);
 
   if (!isTaskComplete && diffTime < 0) {
     $newTaskObj.find("#task--timeRemaining").css("color", "red");

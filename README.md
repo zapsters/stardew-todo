@@ -8,11 +8,15 @@ A todo web app in the style of stardew valley graphics! This is my solo passion 
 
 This is my first todo app I have made, so if you have any suggestions feel free to share your ideas!
 
-## Version: 0.9.2 | Under Development
+## Version: 0.9.3 | Finishing Development
 
-TODO:
+Things are wrapping up for this project! Corners are being rounded, things being tested, and users are using.
 
-- Task Categories
+- Categories are now available for tasks and sorting!
+- Due dates no longer required :)
+- Save data functional, uses local storage and autosaves.
+
+#
 
 If you find any bugs, feel free to leave a comment on this repo!
 

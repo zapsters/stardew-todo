@@ -40,12 +40,15 @@
 
     .titleBox {
       text-align: center;
-      margin: 0 auto;
+      margin-left: 15px;
       overflow: visible;
       flex: 1;
-      padding: 10px 13px;
-      width: calc(100% - 240px);
+      padding: 30px 13px;
+      width: calc(100%);
       @include menuBorderTypeA;
+      h1 {
+        margin: 0;
+      }
     }
     .main {
       display: flex;
@@ -63,8 +66,12 @@
         overflow-x: hidden;
         overflow-y: scroll;
         flex: 1;
+        min-height: 500px;
         padding: 10px;
         padding-right: 0px;
+        h2 {
+          margin-bottom: 5px;
+        }
         ::-webkit-scrollbar {
           display: block;
         }
@@ -103,7 +110,7 @@
           align-items: center;
           justify-content: flex-start;
           position: absolute;
-          top: -84px;
+          top: -79px;
           width: 100%;
 
           .tabElement.right {
@@ -178,7 +185,7 @@
               }
             }
             .tab--active {
-              top: 8px;
+              top: 6px;
             }
 
             .tabTooltip {
@@ -300,8 +307,20 @@
 @media (max-width: $breakpoint-mobile) {
   .app {
     .wrapper {
+      padding: 0 50px;
+      .titleBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: calc(100% - 200px);
+        text-align: left;
+        margin: 0;
+        padding: 24px 20px;
+        height: 125px;
+      }
       .main {
         flex-direction: column;
+        align-items: stretch;
       }
     }
   }

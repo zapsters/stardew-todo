@@ -134,14 +134,20 @@ select {
   position: relative;
   background-color: #f9ba66;
   border: none;
-  box-shadow: #f9ba66 -4px 0px, #f9ba66 4px 0px, #f9ba66 0px 4px,
-    #f9ba66 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px,
-    #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px,
-    #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px,
-    #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px,
-    #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px,
-    #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
-  margin: 12px 8px 17px 12px;
+  box-shadow: #f9ba66 $ui--first 0px, #f9ba66 $ui-first 0px,
+    #f9ba66 0px $ui-first, #f9ba66 0px $ui--first, #e89c3a $ui--first $ui-first,
+    #e89c3a $ui-first $ui-first, #e89c3a $ui-first $ui--first,
+    #e89c3a $ui--first $ui--first, #dc7b05 $ui--first $ui--second,
+    #dc7b05 $ui-first $ui--second, #5b2b2a $ui--first $ui--third,
+    #5b2b2a $ui-first $ui--third, #965c3a $ui--second $ui--second,
+    #965c3a $ui--second $ui-first, #965c3a $ui--first $ui-second,
+    #965c3a $ui-first $ui-second, #5b2b2a $ui-second $ui-first,
+    #5b2b2a $ui-second $ui--second, #a7845f $ui-second $ui--third,
+    #a7845f $ui-second $ui-second, #a7845f $ui--second $ui-second,
+    #a7845f $ui--second $ui--third, #cb9c67 $ui--third $ui--second,
+    #cb9c67 $ui--third $ui-second, #cb9c67 $ui--second $ui-third,
+    #cb9c67 $ui-first $ui-third, #cb9c67 $ui--third 0px;
+  margin: 8px 0px 10px 8px;
 
   font-family: "stardewValleyItem";
   font-size: 20px;
@@ -152,7 +158,7 @@ select {
   // max-width: $input-box-maxsize;
   min-width: 0px;
   min-height: 24px;
-  padding: 2px 0px;
+  padding: 0px 0px;
 }
 
 input[type="button"] {
@@ -182,13 +188,26 @@ textarea:hover,
 select:hover {
   $hover-color: #ebab59;
   background-color: $hover-color;
-  box-shadow: $hover-color -4px 0px, $hover-color 4px 0px, $hover-color 0px 4px,
-    $hover-color 0px -4px, #e89c3a -4px 4px, #e89c3a 4px 4px, #e89c3a 4px -4px,
-    #e89c3a -4px -4px, #dc7b05 -4px -8px, #dc7b05 4px -8px, #5b2b2a -4px -12px,
-    #5b2b2a 4px -12px, #965c3a -8px -8px, #965c3a -8px 4px, #965c3a -4px 8px,
-    #965c3a 4px 8px, #5b2b2a 8px 4px, #5b2b2a 8px -8px, #a7845f 8px -12px,
-    #a7845f 8px 8px, #a7845f -8px 8px, #a7845f -8px -12px, #cb9c67 -12px -8px,
-    #cb9c67 -12px 8px, #cb9c67 -8px 12px, #cb9c67 4px 12px, #cb9c67 -12px 0px;
+  box-shadow: $hover-color $ui--first 0px, $hover-color $ui-first 0px,
+    $hover-color 0px $ui-first, $hover-color 0px $ui--first,
+    #e89c3a $ui--first $ui-first, #e89c3a $ui-first $ui-first,
+    #e89c3a $ui-first $ui--first, #e89c3a $ui--first $ui--first,
+    #dc7b05 $ui--first $ui--second, #dc7b05 $ui-first $ui--second,
+    #5b2b2a $ui--first $ui--third, #5b2b2a $ui-first $ui--third,
+    #965c3a $ui--second $ui--second, #965c3a $ui--second $ui-first,
+    #965c3a $ui--first $ui-second, #965c3a $ui-first $ui-second,
+    #5b2b2a $ui-second $ui-first, #5b2b2a $ui-second $ui--second,
+    #a7845f $ui-second $ui--third, #a7845f $ui-second $ui-second,
+    #a7845f $ui--second $ui-second, #a7845f $ui--second $ui--third,
+    #cb9c67 $ui--third $ui--second, #cb9c67 $ui--third $ui-second,
+    #cb9c67 $ui--second $ui-third, #cb9c67 $ui-first $ui-third,
+    #cb9c67 $ui--third 0px;
+}
+
+hr {
+  border: #853605 solid 1.3px;
+  width: 98%;
+  margin: 10px 0;
 }
 
 input[type="date"]::-webkit-inner-spin-button,

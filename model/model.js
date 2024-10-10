@@ -4,6 +4,7 @@ import {
   updateTaskCountUI,
   screenImportantAlert,
   setLastSavedText,
+  updateCategoryUI,
 } from "../app/app.js";
 
 // Data
@@ -11,7 +12,7 @@ export let uncompleteTasks = [];
 export let completedTasks = [];
 let savedTaskData = null;
 let goldCounter = 0;
-let userCategories = [];
+export let userCategories = ["none"];
 
 // References
 let localStorageName = "stardewtodo";
@@ -41,23 +42,41 @@ export function loadFromSavedData() {
 
   uncompleteTasks = savedData.uncompleteTasks;
   completedTasks = savedData.completedTasks;
+  userCategories = savedData.categoryData;
   updateGoldCounter(savedData.stats.gold);
   let saveDate = new Date(savedData.stats.saveDate);
   setLastSavedText(saveDate.toLocaleString());
   reloadTaskList();
+  updateCategoryUI();
 }
 function reloadTaskList() {
   $("#uncompleted-tasks-count").html("[?]");
   $("#completed-tasks-count").html("[?]");
   $("#uncompleted-tasks-list").html("");
   $("#completed-tasks-list").html("");
+  sortArrayByDueDate(uncompleteTasks);
+  sortArrayByDueDate(completedTasks);
   uncompleteTasks.forEach((taskObject) => {
     // console.log(taskObject);
-    createNewTaskElement(taskObject);
+    createNewTaskElement(taskObject, "#uncompleted-tasks-list");
   });
   completedTasks.forEach((taskObject) => {
     // console.log(taskObject);
-    createNewTaskElement(taskObject, true);
+    createNewTaskElement(taskObject, "#completed-tasks-list", true);
+  });
+}
+export function reloadCategoryScreenTasks(category) {
+  if (!userCategories.includes(category)) return; //Prevent New Category from triggering this and any unknown category ids.
+  $("#category-tasks-list").html("");
+  console.log("found category ", category);
+
+  var result = uncompleteTasks.filter((obj) => {
+    return obj.category === category;
+  });
+  console.log("tasks in category: ", result);
+  result.forEach((taskObject) => {
+    // console.log(taskObject);
+    createNewTaskElement(taskObject, "#category-tasks-list");
   });
 }
 
@@ -72,6 +91,7 @@ export function saveData() {
       saveDate: curDate.getTime(),
       gold: goldCounter,
     },
+    categoryData: userCategories,
   };
   console.log("data just saved: ", savedTaskData);
 
@@ -91,11 +111,7 @@ export function saveData() {
 }
 
 export function deleteSaveData() {
-  if (
-    confirm(
-      "Delete Saved Data? This action can not be undone once you leave the page."
-    )
-  ) {
+  if (confirm("Delete Saved Data? This action can not be undone once you leave the page.")) {
     screenImportantAlert("Data Deleted!", 2);
     localStorage.removeItem(localStorageName);
     setLastSavedText("Saved data deleted.");
@@ -106,6 +122,8 @@ export function deleteSaveData() {
 export function createNewCategory(categoryName) {
   console.log("CREATE NEW CATEGORY: ", categoryName);
   userCategories.push(categoryName);
+  console.log("pushed", categoryName);
+  updateCategoryUI();
 }
 
 // Logic for when the CreateTask form's submit button is pressed. Checks required forms.
@@ -117,14 +135,9 @@ export function submitCreateTaskForm(
   let formArray = form.serializeArray();
   let taskDataObj = {};
 
-  if (
-    formArray[0].value.trim().length === 0 ||
-    formArray[2].value.trim().length === 0
-  ) {
+  if (formArray[0].value.trim().length === 0) {
     $(alertResponse).css("color", "red");
-    $(alertResponse).html(
-      `<p style="color=red">Please fill all required information</p>`
-    );
+    $(alertResponse).html(`<p style="color=red">Please fill all required information</p>`);
     setTimeout(() => {
       $(alertResponse).html(`<p></p>`);
     }, 2000);
@@ -134,13 +147,17 @@ export function submitCreateTaskForm(
   $(formArray).each(function (i, field) {
     switch (field.name) {
       case "dueDate":
-        console.log("caught", field.value);
-
+        // console.log("caught", field.value);
+        if (field.value == "") {
+          taskDataObj["dueDate"] = "none";
+          taskDataObj["dueDateFormatted"] = "none";
+          return;
+        }
         taskDataObj["dueDate"] = new Date(field.value).getTime();
         taskDataObj["dueDateFormatted"] = new Date(field.value)
           .toISOString()
           .replace(/(?:\.\d{1,3})?Z$/, "");
-        console.log(taskDataObj["dueDate"]);
+        // console.log(taskDataObj["dueDate"]);
 
         break;
 
@@ -164,18 +181,15 @@ function createNewTask(taskDataObj) {
   uncompleteTasks = sortArrayByDueDate(uncompleteTasks);
 
   // console.log("== New Task Created ==");
-  createNewTaskElement(taskDataObj);
+  reloadTaskList();
+  $("#categoryScreenSelect").change();
 
   clear_form_elements("#createTaskForm");
-  let ref = $("#createTaskMenu .starRating")
-    .find(">:first-child")
-    .children("input");
+  let ref = $("#createTaskMenu .starRating").find(">:first-child").children("input");
   ref.prop("checked", "true");
   ref.trigger("change");
   $(createTaskFormResponseText).css("color", "black");
-  $(createTaskFormResponseText).html(
-    `<p style="oolor='red'">Task Added Successfully!</p>`
-  );
+  $(createTaskFormResponseText).html(`<p style="oolor='red'">Task Added Successfully!</p>`);
   setTimeout(() => {
     $(createTaskFormResponseText).html(``);
   }, 2000);
@@ -204,8 +218,7 @@ function deepEqual(x, y) {
     tx = typeof x,
     ty = typeof y;
   return x && y && tx === "object" && tx === ty
-    ? ok(x).length === ok(y).length &&
-        ok(x).every((key) => deepEqual(x[key], y[key]))
+    ? ok(x).length === ok(y).length && ok(x).every((key) => deepEqual(x[key], y[key]))
     : x === y;
 }
 export function finishEditingTask() {
@@ -230,6 +243,7 @@ export function finishEditingTask() {
   }
   reloadTaskList();
   cancelEditingTask();
+  $("#categoryScreenSelect").change();
   saveData();
 }
 export function beginEditingTask(taskData) {
@@ -242,12 +256,8 @@ export function beginEditingTask(taskData) {
 
   // Begin populating the field.
   $("#editTaskForm").find("#edit--taskTitle").val(taskDataParsed.taskTitle);
-  $("#editTaskForm")
-    .find("#edit--taskDescription")
-    .val(taskDataParsed.taskDescription);
-  $("#editTaskForm")
-    .find("#edit--dueDate")
-    .val(taskDataParsed.dueDateFormatted);
+  $("#editTaskForm").find("#edit--taskDescription").val(taskDataParsed.taskDescription);
+  $("#editTaskForm").find("#edit--dueDate").val(taskDataParsed.dueDateFormatted);
   $("#editTaskForm").find("#edit--category").val(taskDataParsed.category);
   $("#editTaskForm")
     .find(".starRating")
@@ -281,7 +291,7 @@ export function completeTask(taskElement) {
 
   completedTasks.push(newlyCompletedTask);
 
-  createNewTaskElement(newlyCompletedTask, true);
+  reloadTaskList();
   updateGoldCounter(newlyCompletedTask["taskReward"]);
 
   // update count
@@ -300,7 +310,7 @@ export function uncompleteTask(taskElement) {
 
   uncompleteTasks.push(newlyUnCompletedTask);
 
-  createNewTaskElement(newlyUnCompletedTask, false);
+  reloadTaskList();
   updateGoldCounter(parseInt(newlyUnCompletedTask["taskReward"]) * -1);
 
   // update count

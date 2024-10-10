@@ -11,10 +11,14 @@
   <body>
     <div class="app">
       <!-- <img src="images/game_screen_night.png" alt="" srcset="" /> -->
+      <audio style="display: block" preload="metadata">
+        <!-- Preload audio -->
+        <source src="/audio/000000f1_purchasepurchaseRepeat.mp3" type="audio/ogg" />
+      </audio>
+
       <div class="wrapper">
         <div class="titleBox">
           <h1>Stardew ToDo:</h1>
-          <h3>Driven by cookies!</h3>
         </div>
         <div class="main">
           <div class="menu" style="flex: 1">
@@ -31,7 +35,7 @@
                 <div class="tabTooltip">
                   <span class="tooltiptext">Categories</span>
                 </div>
-                <div class="tab" id="other">
+                <div class="tab" id="category">
                   <div class="tab--icon tab--icon--category"></div>
                 </div>
               </div>
@@ -48,19 +52,14 @@
               <div class="todo" id="taskMenu">
                 <h2>All Tasks:</h2>
                 <ul id="template">
-                  <li
-                    class="taskbox"
-                    id="taskElementTemplate"
-                    style="display: none">
+                  <li class="taskbox" id="taskElementTemplate" style="display: none">
                     <div class="mainTaskContent">
                       <div class="upper">
                         <div class="icon--holder"><div class="icon"></div></div>
                         <div class="details">
                           <h3 id="task--title">title</h3>
                           <div class="description">
-                            <p id="task--description">
-                              this is the template for all task objects.
-                            </p>
+                            <p id="task--description">this is the template for all task objects.</p>
                           </div>
                         </div>
                         <div class="stats">
@@ -76,13 +75,16 @@
                       </div>
 
                       <div class="lower">
-                        <span class="starRating">
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                          <i class="starEmpty"></i>
-                        </span>
+                        <div class="left">
+                          <span class="categoryText" id="categoryText"></span>
+                          <span class="starRating">
+                            <i class="starEmpty"></i>
+                            <i class="starEmpty"></i>
+                            <i class="starEmpty"></i>
+                            <i class="starEmpty"></i>
+                            <i class="starEmpty"></i>
+                          </span>
+                        </div>
                         <div class="options">
                           <i class="checkmark tooltip" id="taskCompleteBtn">
                             <span class="tooltiptext">Complete Task</span></i
@@ -90,9 +92,7 @@
                           <i class="taskXbtn tooltip" id="taskUncompleteBtn">
                             <span class="tooltiptext">Uncomplete Task</span></i
                           >
-                          <i
-                            class="taskSettings tooltip right"
-                            id="taskEditBtn">
+                          <i class="taskSettings tooltip right" id="taskEditBtn">
                             <span class="tooltiptext">Edit Task</span></i
                           >
                         </div>
@@ -117,27 +117,26 @@
                 </details>
                 <details>
                   <summary>
-                    <h3>
-                      Completed Tasks <span id="completed-tasks-count"></span>
-                    </h3>
+                    <h3>Completed Tasks <span id="completed-tasks-count"></span></h3>
                   </summary>
                   <ul id="completed-tasks-list"></ul>
                 </details>
               </div>
-              <div class="otherMenu" id="otherMenu" style="display: none">
-                <h2>Other Menu</h2>
+              <div class="categoryMenu" id="categoryMenu" style="display: none">
+                <h2>Categories</h2>
+                <select
+                  class="categorySelect"
+                  id="categoryScreenSelect"
+                  value="none"
+                  name="category"></select>
+                <hr />
+                <ul id="category-tasks-list"></ul>
               </div>
               <div class="settingsMenu" id="settingsMenu" style="display: none">
                 <h2>Settings</h2>
                 <input type="button" value="Save Data" id="settings-saveBtn" />
-                <input
-                  type="button"
-                  value="Print Save Data"
-                  id="settings-printSavedData" />
-                <input
-                  type="button"
-                  value="Print Task Data"
-                  id="settings-printTaskData" />
+                <input type="button" value="Print Save Data" id="settings-printSavedData" />
+                <input type="button" value="Print Task Data" id="settings-printTaskData" />
                 <input
                   style="color: rgb(247, 38, 11)"
                   type="button"
@@ -147,7 +146,7 @@
               </div>
             </div>
           </div>
-          <div class="menu" style="flex: 0.6">
+          <div class="menu" style="flex: 0.7">
             <div class="tab-menu" id="sidebar-menu">
               <div class="tabElement">
                 <div class="tab tab--active" id="createTask">
@@ -175,32 +174,21 @@
                       <p>Title<span>*</span></p>
                     </td>
                     <td>
-                      <input
-                        type="text"
-                        autocomplete="off"
-                        name="taskTitle"
-                        value="" />
+                      <input type="text" autocomplete="off" name="taskTitle" value="" />
                     </td>
                   </tr>
                   <tr>
                     <td><p>Description</p></td>
                     <td>
-                      <textarea
-                        autocomplete="off"
-                        name="taskDescription"
-                        rows="3"></textarea>
+                      <textarea autocomplete="off" name="taskDescription" rows="3"></textarea>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <p>Due Date<span>*</span></p>
+                      <p>Due Date</p>
                     </td>
                     <td>
-                      <input
-                        type="datetime-local"
-                        autocomplete="off"
-                        name="dueDate"
-                        id="" />
+                      <input type="datetime-local" autocomplete="off" name="dueDate" id="" />
                     </td>
                   </tr>
                   <tr>
@@ -208,16 +196,7 @@
                       <p>Category</p>
                     </td>
                     <td>
-                      <select
-                        class="categorySelect"
-                        value="none"
-                        name="category">
-                        <option value="">none</option>
-                        <option value="null">● null</option>
-                        <option action="newCategory" value="newCategory">
-                          + New Category
-                        </option>
-                      </select>
+                      <select class="categorySelect" value="none" name="category"></select>
                     </td>
                   </tr>
                   <tr>
@@ -310,7 +289,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <p>Due Date<span>*</span></p>
+                      <p>Due Date</p>
                     </td>
                     <td>
                       <input
@@ -329,13 +308,7 @@
                         class="categorySelect"
                         value="none"
                         name="category"
-                        id="edit--category">
-                        <option value="">none</option>
-                        <option value="null">● null</option>
-                        <option action="newCategory" value="newCategory">
-                          + New Category
-                        </option>
-                      </select>
+                        id="edit--category"></select>
                     </td>
                   </tr>
                   <tr>
@@ -394,11 +367,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <input
-                        type="submit"
-                        id="edit--cancel"
-                        value="CANCEL"
-                        style="color: red" />
+                      <input type="submit" id="edit--cancel" value="CANCEL" style="color: red" />
                     </td>
                   </tr>
                   <tr>
