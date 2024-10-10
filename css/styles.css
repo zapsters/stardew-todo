@@ -491,6 +491,19 @@ i {
   background-repeat: no-repeat;
 }
 
+.trashcan {
+  background-image: url("../images/ui/trashcan.png");
+  cursor: pointer;
+  opacity: 0.6;
+}
+.trashcan:hover {
+  opacity: 1;
+}
+
+.trashcan:hover {
+  background-image: url("../images/ui/trashcan_open.png");
+}
+
 .checkmark {
   background-image: url("../images/ui/checkMark.png");
   cursor: pointer;

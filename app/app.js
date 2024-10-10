@@ -15,6 +15,7 @@ import {
   finishEditingTask,
   userCategories,
   reloadCategoryScreenTasks,
+  deleteTask,
 } from "../model/model.js";
 
 // References
@@ -279,7 +280,6 @@ export function createNewTaskElement(taskObjectRef, appendTo, isTaskComplete = f
   $newTaskObj.find("#task--title").html(taskObjectRef["taskTitle"]);
   $newTaskObj.find("#task--description").html(taskObjectRef["taskDescription"]);
   $newTaskObj.find("#task--value").html(taskObjectRef["taskReward"]);
-  console.log(taskObjectRef["category"]);
 
   if (taskObjectRef["category"] != "none")
     $newTaskObj.find("#categoryText").html(`${taskObjectRef["category"]}`);
@@ -291,6 +291,17 @@ export function createNewTaskElement(taskObjectRef, appendTo, isTaskComplete = f
 
   $newTaskObj.find("#taskEditBtn").on("click", function () {
     beginEditingTask($(this).closest("li").attr("task--data"));
+  });
+  $newTaskObj.find("#taskDeleteBtn").on("click", function () {
+    let confirmText = "Click again to confirm";
+    if ($(this).find(".tooltiptext").html() == confirmText) {
+      deleteTask($(this).closest("li").attr("task--data"));
+    } else {
+      $(this).find(".tooltiptext").html(confirmText);
+      setTimeout(() => {
+        $(this).find(".tooltiptext").html("Delete Task");
+      }, 1000);
+    }
   });
   if (!isTaskComplete) {
     $newTaskObj.find("#taskUncompleteBtn").css("display", "none");

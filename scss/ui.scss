@@ -43,6 +43,14 @@ i {
   background-repeat: no-repeat;
 }
 
+.trashcan {
+  background-image: url("../images/ui/trashcan.png");
+  cursor: pointer;
+  @include opacityHoverUi;
+}
+.trashcan:hover {
+  background-image: url("../images/ui/trashcan_open.png");
+}
 .checkmark {
   background-image: url("../images/ui/checkMark.png");
   cursor: pointer;
@@ -134,19 +142,15 @@ select {
   position: relative;
   background-color: #f9ba66;
   border: none;
-  box-shadow: #f9ba66 $ui--first 0px, #f9ba66 $ui-first 0px,
-    #f9ba66 0px $ui-first, #f9ba66 0px $ui--first, #e89c3a $ui--first $ui-first,
-    #e89c3a $ui-first $ui-first, #e89c3a $ui-first $ui--first,
-    #e89c3a $ui--first $ui--first, #dc7b05 $ui--first $ui--second,
-    #dc7b05 $ui-first $ui--second, #5b2b2a $ui--first $ui--third,
-    #5b2b2a $ui-first $ui--third, #965c3a $ui--second $ui--second,
-    #965c3a $ui--second $ui-first, #965c3a $ui--first $ui-second,
-    #965c3a $ui-first $ui-second, #5b2b2a $ui-second $ui-first,
-    #5b2b2a $ui-second $ui--second, #a7845f $ui-second $ui--third,
-    #a7845f $ui-second $ui-second, #a7845f $ui--second $ui-second,
-    #a7845f $ui--second $ui--third, #cb9c67 $ui--third $ui--second,
-    #cb9c67 $ui--third $ui-second, #cb9c67 $ui--second $ui-third,
-    #cb9c67 $ui-first $ui-third, #cb9c67 $ui--third 0px;
+  box-shadow: #f9ba66 $ui--first 0px, #f9ba66 $ui-first 0px, #f9ba66 0px $ui-first,
+    #f9ba66 0px $ui--first, #e89c3a $ui--first $ui-first, #e89c3a $ui-first $ui-first,
+    #e89c3a $ui-first $ui--first, #e89c3a $ui--first $ui--first, #dc7b05 $ui--first $ui--second,
+    #dc7b05 $ui-first $ui--second, #5b2b2a $ui--first $ui--third, #5b2b2a $ui-first $ui--third,
+    #965c3a $ui--second $ui--second, #965c3a $ui--second $ui-first, #965c3a $ui--first $ui-second,
+    #965c3a $ui-first $ui-second, #5b2b2a $ui-second $ui-first, #5b2b2a $ui-second $ui--second,
+    #a7845f $ui-second $ui--third, #a7845f $ui-second $ui-second, #a7845f $ui--second $ui-second,
+    #a7845f $ui--second $ui--third, #cb9c67 $ui--third $ui--second, #cb9c67 $ui--third $ui-second,
+    #cb9c67 $ui--second $ui-third, #cb9c67 $ui-first $ui-third, #cb9c67 $ui--third 0px;
   margin: 8px 0px 10px 8px;
 
   font-family: "stardewValleyItem";
@@ -188,20 +192,15 @@ textarea:hover,
 select:hover {
   $hover-color: #ebab59;
   background-color: $hover-color;
-  box-shadow: $hover-color $ui--first 0px, $hover-color $ui-first 0px,
-    $hover-color 0px $ui-first, $hover-color 0px $ui--first,
-    #e89c3a $ui--first $ui-first, #e89c3a $ui-first $ui-first,
-    #e89c3a $ui-first $ui--first, #e89c3a $ui--first $ui--first,
-    #dc7b05 $ui--first $ui--second, #dc7b05 $ui-first $ui--second,
-    #5b2b2a $ui--first $ui--third, #5b2b2a $ui-first $ui--third,
-    #965c3a $ui--second $ui--second, #965c3a $ui--second $ui-first,
-    #965c3a $ui--first $ui-second, #965c3a $ui-first $ui-second,
-    #5b2b2a $ui-second $ui-first, #5b2b2a $ui-second $ui--second,
-    #a7845f $ui-second $ui--third, #a7845f $ui-second $ui-second,
-    #a7845f $ui--second $ui-second, #a7845f $ui--second $ui--third,
-    #cb9c67 $ui--third $ui--second, #cb9c67 $ui--third $ui-second,
-    #cb9c67 $ui--second $ui-third, #cb9c67 $ui-first $ui-third,
-    #cb9c67 $ui--third 0px;
+  box-shadow: $hover-color $ui--first 0px, $hover-color $ui-first 0px, $hover-color 0px $ui-first,
+    $hover-color 0px $ui--first, #e89c3a $ui--first $ui-first, #e89c3a $ui-first $ui-first,
+    #e89c3a $ui-first $ui--first, #e89c3a $ui--first $ui--first, #dc7b05 $ui--first $ui--second,
+    #dc7b05 $ui-first $ui--second, #5b2b2a $ui--first $ui--third, #5b2b2a $ui-first $ui--third,
+    #965c3a $ui--second $ui--second, #965c3a $ui--second $ui-first, #965c3a $ui--first $ui-second,
+    #965c3a $ui-first $ui-second, #5b2b2a $ui-second $ui-first, #5b2b2a $ui-second $ui--second,
+    #a7845f $ui-second $ui--third, #a7845f $ui-second $ui-second, #a7845f $ui--second $ui-second,
+    #a7845f $ui--second $ui--third, #cb9c67 $ui--third $ui--second, #cb9c67 $ui--third $ui-second,
+    #cb9c67 $ui--second $ui-third, #cb9c67 $ui-first $ui-third, #cb9c67 $ui--third 0px;
 }
 
 hr {

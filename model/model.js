@@ -64,16 +64,17 @@ function reloadTaskList() {
     // console.log(taskObject);
     createNewTaskElement(taskObject, "#completed-tasks-list", true);
   });
+  updateTaskCountUI();
 }
 export function reloadCategoryScreenTasks(category) {
   if (!userCategories.includes(category)) return; //Prevent New Category from triggering this and any unknown category ids.
   $("#category-tasks-list").html("");
-  console.log("found category ", category);
+  // console.log("found category ", category);
 
   var result = uncompleteTasks.filter((obj) => {
     return obj.category === category;
   });
-  console.log("tasks in category: ", result);
+  // console.log("tasks in category: ", result);
   result.forEach((taskObject) => {
     // console.log(taskObject);
     createNewTaskElement(taskObject, "#category-tasks-list");
@@ -243,6 +244,22 @@ export function finishEditingTask() {
   }
   reloadTaskList();
   cancelEditingTask();
+  $("#categoryScreenSelect").change();
+  saveData();
+}
+export function deleteTask(taskData) {
+  if (taskData == undefined || taskData == null) return;
+  let taskDataParsed = JSON.parse(taskData);
+  if (containsObject(taskDataParsed, uncompleteTasks) != -1) {
+    let index = containsObject(taskDataParsed, uncompleteTasks);
+    uncompleteTasks.splice(index, 1);
+  } else if (containsObject(taskDataParsed, completedTasks) != -1) {
+    let index = containsObject(taskDataParsed, completedTasks);
+    completedTasks.splice(index, 1);
+  } else {
+    console.error("TASK TO EDIT NOT FOUND. ABORTING");
+  }
+  reloadTaskList();
   $("#categoryScreenSelect").change();
   saveData();
 }

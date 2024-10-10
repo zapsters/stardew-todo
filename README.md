@@ -14,7 +14,8 @@ Things are wrapping up for this project! Corners are being rounded, things being
 
 - Categories are now available for tasks and sorting!
 - Due dates no longer required :)
-- Save data functional, uses local storage and autosaves.
+- Tasks can be deleted, no matter if completed or uncompleted.
+- Save data is functional, uses local storage and features autosaves.
 
 #
 
