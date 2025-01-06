@@ -1,0 +1,48 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.Application {
+  color: white;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.78);
+  border: 2px solid white;
+  border-radius: 12px;
+  max-width: 74%;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-top: 100px;
+
+  #app {
+    min-height: 70vh;
+    position: relative;
+    h2 {
+      font-size: 48px;
+      font-weight: 900;
+    }
+    h3 {
+      font-size: 30px;
+      font-weight: 400;
+    }
+    .noMargin {
+      margin: 0;
+    }
+    .inheritHeight {
+      min-height: inherit;
+    }
+    .menuSpacing {
+      padding: 26px 34px;
+      position: relative;
+    }
+    .flex {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+    }
+    hr {
+      border: 0;
+      width: 3px;
+      background-color: #535353;
+      margin: 0;
+    }
+  }
+}

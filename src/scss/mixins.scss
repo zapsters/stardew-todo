@@ -1,0 +1,32 @@
+@use "variables" as *;
+
+@mixin menuBorderTypeA() {
+  border: 22px solid;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  border-image: $menu-background-url;
+  border-image-slice: 17% 17% 17% 15%;
+  border-image-outset: 0 0px;
+  background: linear-gradient(180deg, rgba(255, 203, 123, 1) 0%, rgba(235, 168, 103, 1) 100%);
+
+  background-clip: padding-box !important;
+  h1 {
+    text-decoration: underline;
+    margin-bottom: 5px;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+@mixin menuBorderTypeB() {
+  background: linear-gradient(180deg, rgba(255, 203, 123, 1) 0%, rgba(235, 168, 103, 1) 100%);
+}
+
+@mixin opacityHoverUi() {
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stardew ToDo</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- <img src="images/game_screen_night.png" alt="" srcset="" /> -->
+    <audio style="display: block" preload="metadata">
+      <!-- Preload audio -->
+      <source src="/audio/000000f1_purchasepurchaseRepeat.mp3" type="audio/ogg" />
+    </audio>
+    <div class="Application">
+      <nav>
+        <h1>Stardew To-Do</h1>
+        <div class="navLinks">
+          <a class="active" href="#dashboard"><img src="../images/navIcons/page.svg" />Dashboard</a>
+          <a href="#addTask"><img src="../images/navIcons/plus-circle.svg" />Add Task</a>
+          <a href="#shop"><img src="../images/navIcons/shop.svg" />Shop</a>
+          <a href="#settings"><img src="../images/navIcons/settings.svg" />Settings</a>
+          <a href="#login"><img src="../images/navIcons/user.svg" />Login</a>
+          <a href="#account"><img src="../images/navIcons/user-love.svg" />Account</a>
+        </div>
+      </nav>
+      <div id="app"></div>
+    </div>
+    <p id="screen-important-alerts"></p>
+    <div class="clock" style="display: none">
+      <div class="date"><p id="dateElement"></p></div>
+      <div class="time"><p id="timeElement"></p></div>
+      <div class="gold">
+        <span id="goldDisplayCount" contenteditable="false"></span>
+      </div>
+      <div class="arrow" id="clockArrowElement"></div>
+    </div>
+    <script type="module" src="app/app.js"></script>
+  </body>
+</html>
